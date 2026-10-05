@@ -1,0 +1,4007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RITHIN FINANCE — Cost of Equity Capital Calculator</title>
+  <meta name="description" content="Calculate, compare, and learn the Cost of Equity Capital (Ke) using four standard financial methods. Built for B.Com and MBA finance students.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Embedded All-In-One Stylesheets (With Motion Animations) -->
+  <style>
+/* ==========================================================================
+   RITHIN FINANCE — Core Theme & Global Styles
+   "Smart Finance. Simple Decisions."
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Dark Navy & Charcoal Fintech Theme */
+  --bg-dark-950: #070B14;
+  --bg-dark-900: #0B1120;
+  --bg-dark-850: #0F172A;
+  --bg-dark-800: #141E33;
+  --bg-dark-700: #1E293B;
+
+  /* Card Surfaces & Glassmorphism */
+  --card-bg: rgba(15, 23, 42, 0.75);
+  --card-bg-hover: rgba(20, 30, 51, 0.85);
+  --card-bg-elevated: rgba(30, 41, 59, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-focus: rgba(99, 102, 241, 0.45);
+  --glass-border-accent: rgba(16, 185, 129, 0.35);
+
+  /* Primary Brand Accents */
+  --accent-primary: #6366F1;       /* Electric Indigo */
+  --accent-primary-hover: #4F46E5;
+  --accent-primary-glow: rgba(99, 102, 241, 0.25);
+
+  --accent-emerald: #10B981;       /* Fintech Emerald / Yield */
+  --accent-emerald-hover: #059669;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.22);
+
+  --accent-cyan: #06B6D4;          /* Precision Cyan */
+  --accent-cyan-glow: rgba(6, 182, 212, 0.2);
+
+  --accent-amber: #F59E0B;         /* Golden Highlights */
+  --accent-amber-glow: rgba(245, 158, 11, 0.2);
+
+  --accent-rose: #F43F5E;          /* Error / Capital Loss */
+  --accent-rose-glow: rgba(244, 63, 94, 0.2);
+
+  /* Typography Colors */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-inverse: #0B1120;
+
+  /* Fonts */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+
+  /* Layout & Spacing */
+  --container-max-width: 1200px;
+  --header-height: 76px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.55);
+  --shadow-glow-indigo: 0 0 30px rgba(99, 102, 241, 0.2);
+  --shadow-glow-emerald: 0 0 30px rgba(16, 185, 129, 0.2);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* CSS Reset & Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark-950);
+  background-image: 
+    radial-gradient(at 15% 10%, rgba(99, 102, 241, 0.09) 0px, transparent 50%),
+    radial-gradient(at 85% 25%, rgba(16, 185, 129, 0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 80%, rgba(6, 182, 212, 0.06) 0px, transparent 60%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout Containers */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Top App Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(11, 17, 32, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.brand-logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-logo-badge::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+  transform: rotate(30deg);
+  animation: shine 4s infinite linear;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  20%, 100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.brand-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  background: rgba(99, 102, 241, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #A5B4FC;
+  border-radius: 9999px;
+}
+
+.brand-tagline {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* Header Utilities */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.currency-toggle-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-dark-850);
+  border: 1px solid var(--glass-border);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-md);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.currency-select {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.currency-select option {
+  background: var(--bg-dark-900);
+  color: var(--text-primary);
+}
+
+/* Navigation Bar */
+.main-nav {
+  background: rgba(11, 17, 32, 0.6);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 0.5rem 0;
+  position: sticky;
+  top: var(--header-height);
+  z-index: 95;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.15rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.nav-tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nav-tab-btn.active {
+  color: #FFFFFF;
+  background: rgba(99, 102, 241, 0.15);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.15);
+}
+
+.nav-tab-btn.active .tab-icon {
+  color: #818CF8;
+}
+
+.tab-icon {
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+/* Tab Views & Motion Transitions */
+.tab-view {
+  display: none;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-view.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  animation: motionTabReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes motionTabReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered Card Reveals on Active Tab */
+.tab-view.active .dashboard-grid > .method-card:nth-child(1),
+.tab-view.active .compare-cards-grid > .compare-card:nth-child(1),
+.tab-view.active .learn-cards-grid > .learn-card:nth-child(1) {
+  animation: motionCardCascade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.04s backwards;
+}
+
+.tab-view.active .dashboard-grid > .method-card:nth-child(2),
+.tab-view.active .compare-cards-grid > .compare-card:nth-child(2),
+.tab-view.active .learn-cards-grid > .learn-card:nth-child(2) {
+  animation: motionCardCascade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.11s backwards;
+}
+
+.tab-view.active .dashboard-grid > .method-card:nth-child(3),
+.tab-view.active .compare-cards-grid > .compare-card:nth-child(3),
+.tab-view.active .learn-cards-grid > .learn-card:nth-child(3) {
+  animation: motionCardCascade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.18s backwards;
+}
+
+.tab-view.active .dashboard-grid > .method-card:nth-child(4),
+.tab-view.active .compare-cards-grid > .compare-card:nth-child(4),
+.tab-view.active .learn-cards-grid > .learn-card:nth-child(4) {
+  animation: motionCardCascade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.25s backwards;
+}
+
+@keyframes motionCardCascade {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* App Footer */
+.app-footer {
+  margin-top: auto;
+  background: var(--bg-dark-900);
+  border-top: 1px solid var(--glass-border);
+  padding: 3rem 0 2rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.footer-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.footer-brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.footer-tagline {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.footer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: #34D399;
+  border-radius: 9999px;
+  font-size: 0.775rem;
+  font-weight: 600;
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.footer-link:hover {
+  color: #FFFFFF;
+}
+
+/* Common Section Headers */
+.section-header-block {
+  margin-bottom: 2rem;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.section-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin-top: 0.5rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .brand-tagline {
+    display: none;
+  }
+  .section-heading {
+    font-size: 1.6rem;
+  }
+  .app-header {
+    height: 68px;
+  }
+  .footer-top-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Accessibility: Respect Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ==========================================================================
+   RITHIN FINANCE — Components Stylesheet
+   Glassmorphism Cards, Inputs, Results, Comparison & Quiz
+   ========================================================================== */
+
+/* Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #4338CA 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--accent-primary-glow);
+}
+
+.btn:active {
+  transform: scale(0.96) !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--accent-primary-hover) 0%, #3730A3 100%);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-emerald {
+  background: linear-gradient(135deg, var(--accent-emerald) 0%, #047857 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px var(--accent-emerald-glow);
+}
+
+.btn-emerald:hover {
+  background: linear-gradient(135deg, var(--accent-emerald-hover) 0%, #065F46 100%);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--bg-dark-800);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-dark-700);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--glass-border);
+  color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent-primary);
+  color: #FFFFFF;
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.btn-sm {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+/* Glass Card Base */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 1.75rem;
+  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ==========================================================================
+   Dashboard Home Components
+   ========================================================================== */
+
+/* Hero Banner */
+.hero-banner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 2.75rem 2.5rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  animation: floatAura1 14s ease-in-out infinite alternate;
+}
+
+.hero-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: 20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: floatAura2 16s ease-in-out infinite alternate;
+}
+
+@keyframes floatAura1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-30px, 25px) scale(1.18); }
+}
+
+@keyframes floatAura2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(35px, -30px) scale(1.22); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #A5B4FC;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+
+.hero-title .gradient-text {
+  background: linear-gradient(135deg, #A5B4FC 0%, #38BDF8 50%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Dashboard Methods Grid */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.method-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 330px;
+  cursor: pointer;
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.method-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  transition: left 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.method-card:hover::before {
+  left: 130%;
+}
+
+.method-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(99, 102, 241, 0.48);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.55), 0 0 25px rgba(99, 102, 241, 0.2);
+}
+
+.method-card:active {
+  transform: translateY(-2px) scale(0.99);
+}
+
+.method-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.method-icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background: var(--bg-dark-800);
+  border: 1px solid var(--glass-border);
+  color: #FFFFFF;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.method-card:hover .method-icon-circle {
+  transform: scale(1.15) rotate(6deg);
+}
+
+.method-number-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--bg-dark-850);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+.method-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.method-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.method-formula-box {
+  background: var(--bg-dark-900);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #38BDF8;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.method-formula-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.method-card-footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ==========================================================================
+   Calculator View (Two-Column Layout)
+   ========================================================================== */
+
+.calculator-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Calculator Header Bar */
+.calc-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.calc-selector-pills {
+  display: flex;
+  background: var(--bg-dark-850);
+  border: 1px solid var(--glass-border);
+  padding: 0.3rem;
+  border-radius: var(--radius-lg);
+  gap: 0.35rem;
+  overflow-x: auto;
+}
+
+.calc-pill-btn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.calc-pill-btn:hover {
+  color: var(--text-primary);
+}
+
+.calc-pill-btn.active {
+  background: var(--accent-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px var(--accent-primary-glow);
+}
+
+/* Forms & Inputs */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.form-hint {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.input-addon-group {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-dark-900);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  overflow: hidden;
+}
+
+.input-addon-group:focus-within {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-primary-glow);
+}
+
+.input-prefix,
+.input-suffix {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.85rem;
+  background: var(--bg-dark-800);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  user-select: none;
+}
+
+.form-control {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 1rem;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  width: 100%;
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Radio / Checkbox Switchers */
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-dark-850);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1rem;
+  margin-bottom: 1.25rem;
+  cursor: pointer;
+}
+
+.toggle-label {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* Calculator Action Toolbar */
+.calc-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  flex-wrap: wrap;
+}
+
+/* Error Alert Box */
+.calc-error-box {
+  display: none;
+  padding: 0.85rem 1.15rem;
+  border-radius: var(--radius-md);
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #FDA4AF;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calc-error-box.visible {
+  display: flex;
+}
+
+/* ==========================================================================
+   Result Screen & Step-by-Step Breakdown
+   ========================================================================== */
+
+.result-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(20, 30, 51, 0.85) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(99, 102, 241, 0.08);
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.result-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.result-method-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #818CF8;
+}
+
+/* Large Highlighted Result Percentage */
+.result-hero-box {
+  text-align: center;
+  padding: 1.75rem 1rem;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.12) 0%, rgba(15, 23, 42, 0) 70%);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.result-hero-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.result-hero-value {
+  font-size: 3.75rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  line-height: 1;
+  color: #10B981;
+  text-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+  letter-spacing: -0.03em;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.result-hero-value.popping {
+  animation: numberPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes numberPop {
+  0% { transform: scale(0.9); opacity: 0.85; }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.result-hero-sublabel {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  margin-top: 0.75rem;
+}
+
+/* Breakdown Steps */
+.breakdown-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.step-item {
+  background: var(--bg-dark-900);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  animation: motionStepSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.step-item:hover {
+  transform: translateX(4px);
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.step-item:nth-child(1) { animation-delay: 0.05s; }
+.step-item:nth-child(2) { animation-delay: 0.12s; }
+.step-item:nth-child(3) { animation-delay: 0.19s; }
+.step-item:nth-child(4) { animation-delay: 0.26s; }
+
+@keyframes motionStepSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.step-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.step-expr {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  word-break: break-all;
+}
+
+/* Given Variables Grid */
+.variables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.var-pill {
+  background: var(--bg-dark-850);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+}
+
+.var-symbol {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #38BDF8;
+}
+
+.var-name {
+  font-size: 0.725rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.var-val {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-top: 0.2rem;
+}
+
+/* Result Card Footer Actions */
+.result-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--glass-border);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Compare Methods Dashboard
+   ========================================================================== */
+
+.compare-top-banner {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.compare-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.compare-card {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  text-align: center;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.compare-card.active-target {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+}
+
+.compare-card-method {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compare-card-percent {
+  font-family: var(--font-mono);
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.compare-card:nth-child(1) .compare-card-percent { color: #38BDF8; }
+.compare-card:nth-child(2) .compare-card-percent { color: #10B981; }
+.compare-card:nth-child(3) .compare-card-percent { color: #F59E0B; }
+.compare-card:nth-child(4) .compare-card-percent { color: #A855F7; }
+
+.compare-card-formula {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: var(--bg-dark-900);
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* Comparison Chart Box */
+.chart-container-box {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chart-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  height: 320px;
+}
+
+/* Offline Resilient SVG Bar Chart */
+.svg-fallback-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1rem 0;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.bar-method-name {
+  width: 180px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.bar-track {
+  flex: 1;
+  height: 28px;
+  background: var(--bg-dark-800);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: var(--radius-sm);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* Educational Caveat Banner */
+.educational-caveat-banner {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.caveat-icon {
+  font-size: 1.4rem;
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.caveat-text-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FDE68A;
+  margin-bottom: 0.3rem;
+}
+
+.caveat-text-body {
+  font-size: 0.875rem;
+  color: #E2E8F0;
+  line-height: 1.5;
+}
+
+/* Comparison Matrix Table */
+.matrix-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-dark-900);
+  margin-bottom: 2rem;
+}
+
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.matrix-table th {
+  background: var(--bg-dark-800);
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  border-bottom: 1px solid var(--glass-border);
+  white-space: nowrap;
+}
+
+.matrix-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.matrix-table tr:last-child td {
+  border-bottom: none;
+}
+
+.matrix-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.matrix-method-badge {
+  font-weight: 700;
+  color: #FFFFFF;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.matrix-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #38BDF8;
+}
+
+/* ==========================================================================
+   Educational Mode & Quiz
+   ========================================================================== */
+
+.learn-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.learn-card {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  transition: all var(--transition-normal);
+}
+
+.learn-card-badge {
+  display: inline-block;
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #A5B4FC;
+  margin-bottom: 0.75rem;
+}
+
+.learn-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+
+.learn-card-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.learn-formula-display {
+  background: var(--bg-dark-900);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #38BDF8;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.learn-list {
+  list-style: none;
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.learn-list li {
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.learn-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-primary);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Quiz Styles */
+.quiz-container {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  margin-top: 2rem;
+}
+
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 1rem;
+}
+
+.quiz-progress-text {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.quiz-question-box {
+  margin-bottom: 1.5rem;
+}
+
+.quiz-question-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+
+.quiz-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.9rem 1.2rem;
+  background: var(--bg-dark-900);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease;
+  width: 100%;
+}
+
+.quiz-option-btn:hover:not(:disabled) {
+  background: var(--bg-dark-800);
+  border-color: rgba(99, 102, 241, 0.45);
+  transform: translateX(6px);
+}
+
+.quiz-option-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-dark-800);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quiz-option-btn:hover:not(:disabled) .quiz-option-letter {
+  transform: scale(1.1);
+}
+
+.quiz-option-btn.correct {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--accent-emerald);
+  color: #A7F3D0;
+  animation: quizCorrectBounce 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.quiz-option-btn.correct .quiz-option-letter {
+  background: var(--accent-emerald);
+  color: #FFFFFF;
+  border-color: var(--accent-emerald);
+}
+
+.quiz-option-btn.incorrect {
+  background: rgba(244, 63, 94, 0.15);
+  border-color: var(--accent-rose);
+  color: #FECDD3;
+  animation: quizErrorShake 0.4s ease-in-out;
+}
+
+@keyframes quizCorrectBounce {
+  0% { transform: scale(0.96); }
+  50% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
+
+@keyframes quizErrorShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+
+.quiz-option-btn.incorrect .quiz-option-letter {
+  background: var(--accent-rose);
+  color: #FFFFFF;
+  border-color: var(--accent-rose);
+}
+
+.quiz-feedback-box {
+  display: none;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-dark-850);
+  border: 1px solid var(--glass-border);
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.quiz-feedback-box.visible {
+  display: block;
+}
+
+/* Modal / About Card */
+.about-card-section {
+  background: var(--card-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+/* Toast Notifications */
+.toast-notice {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--bg-dark-800);
+  border: 1px solid var(--accent-primary);
+  color: #FFFFFF;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 999;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.toast-notice.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .calculator-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-banner {
+    padding: 2rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .variables-grid {
+    grid-template-columns: 1fr;
+  }
+  .result-hero-value {
+    font-size: 3rem;
+  }
+  .bar-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+  .bar-method-name {
+    width: 100%;
+  }
+  .bar-track {
+    width: 100%;
+  }
+}
+
+  </style>
+
+  <!-- Chart.js for smooth interactive visualizations (with offline resilient SVG fallback) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand-wrapper" onclick="window.navigateToTab('dashboard')">
+        <div class="brand-logo-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <span class="brand-name">RITHIN FINANCE</span>
+            <span class="brand-badge">PRO SUITE</span>
+          </div>
+          <span class="brand-tagline">Smart Finance. Simple Decisions.</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="currency-toggle-wrap">
+          <label for="currency-select">Currency:</label>
+          <select id="currency-select" class="currency-select">
+            <option value="₹" selected>₹ INR (Rupee)</option>
+            <option value="$">$ USD (Dollar)</option>
+            <option value="€">€ EUR (Euro)</option>
+            <option value="£">£ GBP (Pound)</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.navigateToTab('methods', 'm1')">
+          ⚡ Start Calculation
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="main-nav">
+    <div class="container">
+      <div class="nav-tabs">
+        <button type="button" class="nav-tab-btn active" data-tab="dashboard">
+          <span class="tab-icon">🏠</span>
+          <span>Dashboard</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="methods">
+          <span class="tab-icon">🧮</span>
+          <span>Methods Calculator</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="compare">
+          <span class="tab-icon">📊</span>
+          <span>Compare Methods</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="learn">
+          <span class="tab-icon">🎓</span>
+          <span>Learn the Concept</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="about">
+          <span class="tab-icon">ℹ️</span>
+          <span>About</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Body -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ====================================================================
+           VIEW 1: DASHBOARD
+           ==================================================================== -->
+      <section id="view-dashboard" class="tab-view active">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-content">
+            <div class="hero-badge-pill">CORPORATE FINANCIAL MANAGEMENT</div>
+            <h1 class="hero-title">
+              Cost of Equity Capital <span class="gradient-text">Calculator</span>
+            </h1>
+            <p class="hero-subtitle">
+              Calculate the cost of equity using four standard financial methods. Designed for B.Com and MBA finance students with real-time step-by-step mathematical breakdowns.
+            </p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary btn-lg" onclick="window.navigateToTab('methods', 'm1')">
+                Start Calculation →
+              </button>
+              <button type="button" class="btn btn-secondary btn-lg" onclick="window.navigateToTab('compare')">
+                Compare All 4 Methods
+              </button>
+              <button type="button" class="btn btn-outline btn-lg" onclick="window.navigateToTab('learn')">
+                Learn the Concepts 📖
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header-block">
+          <div class="section-eyebrow">EQUITY VALUATION FRAMEWORKS</div>
+          <h2 class="section-heading">Four Standard Calculation Methods</h2>
+          <p class="section-description">
+            Choose any method below to view mathematical formulations, test textbook scenarios, and inspect step-by-step algebraic substitutions.
+          </p>
+        </div>
+
+        <!-- Four Method Cards -->
+        <div class="dashboard-grid">
+          
+          <!-- Method 1 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm1')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #38BDF8;">🪙</div>
+                <div class="method-number-tag">METHOD 01</div>
+              </div>
+              <h3 class="method-title">Dividend Price Method</h3>
+              <p class="method-desc">
+                Calculates Cost of Equity directly as the ratio of current dividend per share to market price, assuming constant zero-growth dividends.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span>Ke = (D / P) × 100</span>
+                <span class="method-formula-label">Formula</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #38BDF8; font-weight: 600;">Textbook: Ke = 8.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 2 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm2')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #10B981;">📈</div>
+                <div class="method-number-tag">METHOD 02</div>
+              </div>
+              <h3 class="method-title">Dividend Yield + Growth Method</h3>
+              <p class="method-desc">
+                The classic Gordon Growth model accounting for expected future dividend expansion by combining dividend yield with dividend growth rate ($g$).
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #10B981;">Ke = (D1 / P0) + g</span>
+                <span class="method-formula-label">Gordon Model</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #10B981; font-weight: 600;">Textbook: Ke = 13.40%</span>
+                <button type="button" class="btn btn-emerald btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 3 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm3')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #F59E0B;">🏢</div>
+                <div class="method-number-tag">METHOD 03</div>
+              </div>
+              <h3 class="method-title">Earnings Price Method</h3>
+              <p class="method-desc">
+                Measures the cost of equity from the company's total earnings yield (EPS / Price), ideal for firms retaining a high percentage of profits for capital growth.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #F59E0B;">Ke = (E / P) × 100</span>
+                <span class="method-formula-label">Earnings Yield</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #F59E0B; font-weight: 600;">Textbook: Ke = 10.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 4 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm4')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #A855F7;">⏳</div>
+                <div class="method-number-tag">METHOD 04</div>
+              </div>
+              <h3 class="method-title">Realised Yield Method</h3>
+              <p class="method-desc">
+                Computes actual historical return realized by equity shareholders from dividends received plus price appreciation (capital gain) over a holding period.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #C084FC; font-size: 0.775rem;">[(D + (P1 - P0)) / P0] × 100</span>
+                <span class="method-formula-label">Ex-Post</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #C084FC; font-weight: 600;">Textbook: Ke = 15.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Summary Callout -->
+        <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">Need to compare all 4 methods for an exam problem?</div>
+            <div style="font-size: 0.825rem; color: var(--text-secondary);">Enter unified company variables to see all 4 calculations rendered concurrently with visual charts.</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.navigateToTab('compare')">
+            Launch Comparison Engine 📊
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 2: METHODS CALCULATOR
+           ==================================================================== -->
+      <section id="view-methods" class="tab-view">
+        
+        <div class="calc-nav-bar">
+          <div>
+            <div class="section-eyebrow">INTERACTIVE CALCULATOR</div>
+            <h2 class="section-heading" style="font-size: 1.75rem;">Cost of Equity Engine</h2>
+          </div>
+
+          <!-- Method Selector Tabs -->
+          <div class="calc-selector-pills">
+            <button type="button" class="calc-pill-btn active" data-method="m1">1. Dividend Price</button>
+            <button type="button" class="calc-pill-btn" data-method="m2">2. Dividend + Growth</button>
+            <button type="button" class="calc-pill-btn" data-method="m3">3. Earnings Price</button>
+            <button type="button" class="calc-pill-btn" data-method="m4">4. Realised Yield</button>
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 1 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m1">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0;">METHOD 1</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m1-example-btn">
+                ✨ Load Example (₹8 / ₹100)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Dividend Price Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Calculates Cost of Equity (Ke) based on dividend per share and market price, assuming perpetual zero growth.
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span>Ke = (D / P) × 100</span>
+              <span class="method-formula-label">Standard Formula</span>
+            </div>
+
+            <div class="calc-error-box" id="m1-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m1-dividend">
+                <span>Dividend per Share (D)</span>
+                <span class="form-hint">Annual dividend paid</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m1-dividend" class="form-control" placeholder="8.00" value="8" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m1-price">
+                <span>Market Price per Share (P)</span>
+                <span class="form-hint">Current market valuation</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m1-price" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m1-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m1-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m1-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 2 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m2" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #6EE7B7;">METHOD 2</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m2-example-btn">
+                ✨ Load Example (₹8, 5%, ₹100)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Dividend Yield + Growth Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Gordon Growth Model factoring in constant anticipated dividend growth rate ($g$).
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.25rem;">
+              <span style="color: #10B981;">Ke = (D1 / P0) + g</span>
+              <span class="method-formula-label">Gordon Model</span>
+            </div>
+
+            <div class="toggle-row">
+              <input type="checkbox" id="m2-is-d1-toggle" style="cursor: pointer; width: 16px; height: 16px;">
+              <label for="m2-is-d1-toggle" class="toggle-label" style="cursor: pointer;">
+                I already know the <strong>Expected Next Dividend (D1)</strong> directly
+              </label>
+            </div>
+
+            <div class="calc-error-box" id="m2-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-dividend" id="m2-div-label">
+                <span>Current Dividend per Share (D0)</span>
+                <span class="form-hint">D1 = D0 × (1 + g)</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m2-dividend" class="form-control" placeholder="8.00" value="8" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-growth">
+                <span>Expected Dividend Growth Rate (g)</span>
+                <span class="form-hint">Enter as a % (e.g. 5 for 5%)</span>
+              </label>
+              <div class="input-addon-group">
+                <input type="number" id="m2-growth" class="form-control" placeholder="5.00" value="5" step="any">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-price">
+                <span>Current Market Price per Share (P0)</span>
+                <span class="form-hint">Base market price</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m2-price" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-emerald" id="m2-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m2-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m2-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 3 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m3" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #FCD34D;">METHOD 3</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m3-example-btn">
+                ✨ Load Example (EPS ₹12 / ₹120)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Earnings Price Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Determines Cost of Equity based on overall earning power per share (EPS / Price).
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span style="color: #F59E0B;">Ke = (E / P) × 100</span>
+              <span class="method-formula-label">Earnings Yield</span>
+            </div>
+
+            <div class="calc-error-box" id="m3-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m3-eps">
+                <span>Earnings per Share (EPS)</span>
+                <span class="form-hint">E = Net Profit / Equity Shares</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m3-eps" class="form-control" placeholder="12.00" value="12" step="any">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m3-price">
+                <span>Market Price per Share (P)</span>
+                <span class="form-hint">Current market valuation</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m3-price" class="form-control" placeholder="120.00" value="120" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m3-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m3-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m3-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 4 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m4" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: #D8B4FE;">METHOD 4</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m4-example-btn">
+                ✨ Load Example (₹100, ₹110, ₹5)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Realised Yield Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Calculates historical actual return from dividends and share price appreciation.
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span style="color: #C084FC; font-size: 0.775rem;">Realised Yield = [(D + (P1 - P0)) / P0] × 100</span>
+              <span class="method-formula-label">Holding Return</span>
+            </div>
+
+            <div class="calc-error-box" id="m4-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-p0">
+                <span>Beginning Market Price (P0)</span>
+                <span class="form-hint">Share price at start of period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-p0" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-p1">
+                <span>Ending Market Price (P1)</span>
+                <span class="form-hint">Share price at end of period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-p1" class="form-control" placeholder="110.00" value="110" step="any">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-dividend">
+                <span>Dividend Received (D)</span>
+                <span class="form-hint">Cash dividends during period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-dividend" class="form-control" placeholder="5.00" value="5" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m4-calc-btn">
+                Calculate Realised Yield
+              </button>
+              <button type="button" class="btn btn-secondary" id="m4-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m4-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 3: COMPARE METHODS DASHBOARD
+           ==================================================================== -->
+      <section id="view-compare" class="tab-view">
+        
+        <div class="section-header-block">
+          <div class="section-eyebrow">CROSS-METHOD BENCHMARKING</div>
+          <h2 class="section-heading">Compare All Four Methods</h2>
+          <p class="section-description">
+            Evaluate how the Cost of Equity varies across models for the same underlying security or company scenario.
+          </p>
+        </div>
+
+        <!-- Presets and Input Controls -->
+        <div class="compare-top-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div style="font-weight: 700; color: #FFFFFF; font-size: 1.05rem;">Scenario Inputs</div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="default">Textbook Standard</button>
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="fmcg">Mature FMCG (High Div)</button>
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="tech">Tech Firm (High Growth)</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+            <div>
+              <label class="form-label" for="cmp-dividend">Dividend (D0/D)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-dividend" class="form-control" value="8" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-price">Base Price (P0/P)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-price" class="form-control" value="100" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-growth">Growth Rate (g)</label>
+              <div class="input-addon-group">
+                <input type="number" id="cmp-growth" class="form-control" value="5.4" step="any">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-eps">Earnings (EPS)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-eps" class="form-control" value="10" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-p1">Ending Price (P1)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-p1" class="form-control" value="115" step="any">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary btn-sm" id="cmp-reset-btn">Reset Defaults</button>
+            <button type="button" class="btn btn-primary btn-sm" id="cmp-calc-btn">Recalculate All 4 Methods</button>
+          </div>
+        </div>
+
+        <!-- 4 Cards Summary Grid -->
+        <div class="compare-cards-grid">
+          
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Dividend Price Method</div>
+            <div class="compare-card-percent" id="cmp-card-1-val">8.00%</div>
+            <div class="compare-card-formula">Ke = D / P × 100</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Dividend Yield + Growth</div>
+            <div class="compare-card-percent" id="cmp-card-2-val">13.40%</div>
+            <div class="compare-card-formula">Ke = (D1 / P0) + g</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Earnings Price Method</div>
+            <div class="compare-card-percent" id="cmp-card-3-val">10.00%</div>
+            <div class="compare-card-formula">Ke = E / P × 100</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Realised Yield Method</div>
+            <div class="compare-card-percent" id="cmp-card-4-val">15.00%</div>
+            <div class="compare-card-formula">[(D + ΔP) / P0] × 100</div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Comparison Chart -->
+        <div class="chart-container-box">
+          <div class="chart-header">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF;">Visual Comparison Chart</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Relative magnitude of Cost of Equity percentages across the 4 methods.</p>
+            </div>
+            <span class="hero-badge-pill" style="margin-bottom: 0;">PERCENTAGE COMPARISON</span>
+          </div>
+
+          <div class="chart-canvas-wrapper">
+            <canvas id="compare-chart-canvas"></canvas>
+            <div class="svg-fallback-chart" id="compare-chart-fallback" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Crucial Educational Caveat -->
+        <div class="educational-caveat-banner">
+          <div class="caveat-icon">⚠️</div>
+          <div>
+            <div class="caveat-text-title">Understanding Why Methods Produce Different Results</div>
+            <div class="caveat-text-body">
+              <strong>Methods may produce different results because each method uses different assumptions and financial information.</strong>
+              For instance, the Dividend Price Method assumes zero future growth, while the Gordon model prices in continuous dividend expansion. The Earnings Price Method reflects total corporate earning power (assuming retention adds equal value), while Realised Yield reflects historical past performance rather than future expectations.
+              <br><br>
+              <em>Finance Principle: No single method is universally declared the "best" method. The appropriate method depends on the firm’s dividend policy, growth stage, and market predictability.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison Matrix Table -->
+        <div class="matrix-table-wrap">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Calculation Method</th>
+                <th>Standard Formula</th>
+                <th>Key Inputs Required</th>
+                <th>Core Underlying Assumption</th>
+                <th>B.Com / MBA Applicability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">1. Dividend Price Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Zero-Growth Valuation</span>
+                </td>
+                <td class="matrix-code">Ke = (D / P) × 100</td>
+                <td>Dividend (D), Market Price (P)</td>
+                <td>Dividends remain fixed indefinitely; zero growth (g = 0); 100% payout of normal profits.</td>
+                <td>Mature, stationary utilities with stable cash flows and predictable dividend payouts.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">2. Dividend Yield + Growth</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Gordon Growth Model</span>
+                </td>
+                <td class="matrix-code">Ke = (D1 / P0) + g</td>
+                <td>Current Div (D0) or D1, Growth rate (g), Price (P0)</td>
+                <td>Dividends grow at a constant perpetual rate (g); cost of equity exceeds growth rate (Ke > g).</td>
+                <td>Most widely used in textbook problems for companies with a steady track record of growing dividends.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">3. Earnings Price Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Earnings Yield</span>
+                </td>
+                <td class="matrix-code">Ke = (E / P) × 100</td>
+                <td>Earnings per Share (EPS), Market Price (P)</td>
+                <td>Investors look at total earning power rather than just distributed dividends; retained earnings yield same return.</td>
+                <td>High-growth firms that reinvest most profits instead of declaring high dividends.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">4. Realised Yield Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Historical Ex-Post Return</span>
+                </td>
+                <td class="matrix-code">[(D + (P1 - P0)) / P0] × 100</td>
+                <td>Beginning Price (P0), Ending Price (P1), Dividends (D)</td>
+                <td>Past shareholder returns reflect the risk-adjusted rate of return required for future periods.</td>
+                <td>Retrospective academic studies and empirical market risk benchmarking.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 4: LEARN THE CONCEPT (EDUCATIONAL MODE)
+           ==================================================================== -->
+      <section id="view-learn" class="tab-view">
+        
+        <div class="section-header-block">
+          <div class="section-eyebrow">FINANCE EDUCATION SUITE</div>
+          <h2 class="section-heading">Learn the Cost of Equity (Ke)</h2>
+          <p class="section-description">
+            A comprehensive, exam-oriented study guide written in simple English specifically for B.Com and MBA finance students.
+          </p>
+        </div>
+
+        <!-- Concept Cards Grid -->
+        <div class="learn-cards-grid">
+          
+          <!-- Method 1 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge">METHOD 1: ZERO GROWTH</span>
+            <h3 class="learn-card-title">Dividend Price Method</h3>
+            <p class="learn-card-text">
+              The Dividend Price Method assumes that the market price of an equity share depends strictly on the current cash dividend paid to shareholders, and that this dividend will remain constant forever.
+            </p>
+            <div class="learn-formula-display">
+              Ke = (D / P) × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>Ke</strong> = Cost of Equity capital (percentage).</li>
+              <li><strong>D</strong> = Dividend per Share (DPS).</li>
+              <li><strong>P</strong> = Current Market Price per Share (MPS).</li>
+              <li><strong>When used:</strong> Ideal for mature, zero-growth companies that pay out 100% of their earnings as steady dividends.</li>
+              <li><strong>Limitation:</strong> Unrealistic for growing modern firms that retain earnings or increase dividends annually.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> A firm pays a dividend of ₹8 per share and its market price is ₹100.
+              <br>Ke = (8 / 100) × 100 = <strong>8.00%</strong>
+            </div>
+          </div>
+
+          <!-- Method 2 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #6EE7B7;">METHOD 2: GORDON MODEL</span>
+            <h3 class="learn-card-title">Dividend Yield + Growth Method</h3>
+            <p class="learn-card-text">
+              Recognizes that equity investors expect dividends to increase over time as company profits expand. The cost of equity equals the current dividend yield plus the anticipated dividend growth rate ($g$).
+            </p>
+            <div class="learn-formula-display" style="color: #10B981;">
+              Ke = (D1 / P0) + g
+            </div>
+            <ul class="learn-list">
+              <li><strong>D1</strong> = Expected dividend next year = D0 × (1 + g).</li>
+              <li><strong>P0</strong> = Current market price per share.</li>
+              <li><strong>g</strong> = Constant annual dividend growth rate.</li>
+              <li><strong>When used:</strong> Widely used in corporate finance and MBA exams for established firms with steady growth.</li>
+              <li><strong>Limitation:</strong> Requires that growth rate ($g$) is less than Cost of Equity ($Ke$), and growth must remain constant.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> Current div = ₹8, growth = 5%, price = ₹100.
+              <br>D1 = 8 × 1.05 = ₹8.40
+              <br>Ke = (8.40 / 100) + 0.05 = 0.084 + 0.05 = <strong>13.40%</strong>
+            </div>
+          </div>
+
+          <!-- Method 3 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #FCD34D;">METHOD 3: EARNINGS YIELD</span>
+            <h3 class="learn-card-title">Earnings Price Method</h3>
+            <p class="learn-card-text">
+              The Earnings Price Method argues that equity shareholders own the entire earnings of the company, whether paid out as dividends or retained. Therefore, Cost of Equity is the company’s earnings yield.
+            </p>
+            <div class="learn-formula-display" style="color: #F59E0B;">
+              Ke = (E / P) × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>E</strong> = Earnings per Share (EPS = Net Profit after Tax & Pref. Div / No. of Equity Shares).</li>
+              <li><strong>P</strong> = Market Price per Share.</li>
+              <li><strong>When used:</strong> Highly useful when companies retain a high proportion of profits for reinvestment.</li>
+              <li><strong>Limitation:</strong> Assumes retained earnings will generate a rate of return exactly equal to current cost of equity.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> EPS = ₹12, Market Price = ₹120.
+              <br>Ke = (12 / 120) × 100 = <strong>10.00%</strong> (P/E ratio = 10x)
+            </div>
+          </div>
+
+          <!-- Method 4 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: #D8B4FE;">METHOD 4: HISTORICAL RETURN</span>
+            <h3 class="learn-card-title">Realised Yield Method</h3>
+            <p class="learn-card-text">
+              Instead of forecasting future dividends or earnings, this method measures the actual return realised by an investor in past years through cash dividends and share price appreciation.
+            </p>
+            <div class="learn-formula-display" style="color: #C084FC; font-size: 0.85rem;">
+              Realised Yield = [(D + (P1 - P0)) / P0] × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>P0</strong> = Beginning market price.</li>
+              <li><strong>P1</strong> = Ending market price.</li>
+              <li><strong>D</strong> = Dividend received during the holding period.</li>
+              <li><strong>(P1 - P0)</strong> = Capital Gain (or loss if negative).</li>
+              <li><strong>When used:</strong> When future projections are uncertain and past performance provides a realistic proxy.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> Bought at ₹100, sold at ₹110, dividend = ₹5.
+              <br>Yield = [5 + (110 - 100)] / 100 × 100 = <strong>15.00%</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formula Reference Section -->
+        <div class="glass-card" style="margin-bottom: 2.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF;">📋 Quick Formula Cheat-Sheet for Exams</h3>
+            <span class="hero-badge-pill" style="margin-bottom: 0;">EXAM REVISION</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Keep this reference handy when solving corporate financial management and cost of capital examination questions.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">DIVIDEND PRICE</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #38BDF8; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (D / P) × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">D = Dividend, P = Market Price</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">GORDON GROWTH</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #10B981; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (D1 / P0) + g</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">D1 = D0 × (1 + g), g = growth %</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">EARNINGS PRICE</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #F59E0B; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (E / P) × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">E = EPS, P = Market Price</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">REALISED YIELD</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #C084FC; font-size: 0.95rem; margin: 0.4rem 0;">[(D + ΔP) / P0] × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">ΔP = (P1 - P0) Capital gain</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Knowledge Check Quiz -->
+        <div class="quiz-container">
+          <div style="margin-bottom: 1.5rem;">
+            <div class="section-eyebrow">INTERACTIVE KNOWLEDGE CHECK</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Test Your Understanding</h3>
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">
+              Answer these 5 quick conceptual questions to verify your grasp of Cost of Equity capital methods.
+            </p>
+          </div>
+
+          <div id="quiz-container">
+            <!-- Rendered by QuizEngine -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 5: ABOUT
+           ==================================================================== -->
+      <section id="view-about" class="tab-view">
+        
+        <div class="about-card-section">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="brand-logo-badge" style="width: 56px; height: 56px; font-size: 1.75rem;">
+              🏛️
+            </div>
+            <div>
+              <h2 style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF;">RITHIN FINANCE</h2>
+              <div style="font-size: 0.9rem; color: #38BDF8; font-weight: 600;">Smart Finance. Simple Decisions.</div>
+            </div>
+          </div>
+
+          <p style="font-size: 1rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.5rem;">
+            <strong>RITHIN FINANCE</strong> is a modern, high-precision financial education application engineered specifically for Bachelor of Commerce (B.Com) and Master of Business Administration (MBA) students.
+          </p>
+
+          <h4 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem;">Why Cost of Equity Matters</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+            In Corporate Financial Management, the <strong>Cost of Equity Capital (Ke)</strong> represents the minimum rate of return a firm must generate on equity-financed investments to maintain the market value of its common stock. Unlike debt capital which carries an explicit contractual interest rate, equity capital does not have a legally binding payment obligation. Estimating its cost requires financial models that translate investor expectations, dividend policies, and market returns into an accurate percentage hurdle rate.
+          </p>
+
+          <h4 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem;">Key Design Principles</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #10B981; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Mathematical Rigor</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Zero division guards, accurate rounding to 2 decimal places, verified against standard finance textbooks.</div>
+            </div>
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #38BDF8; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Full Step-by-Step Transparency</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Every calculation displays given parameters, explicit formula, algebraic substitution, and final answer.</div>
+            </div>
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #F59E0B; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Neutral Evaluation</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Compares all 4 methods side-by-side without arbitrarily claiming one method is universally superior.</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+            <button type="button" class="btn btn-primary" onclick="window.navigateToTab('methods', 'm1')">
+              Launch Calculator Now →
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="footer-top-row">
+        <div>
+          <div class="footer-brand-title">RITHIN FINANCE</div>
+          <div class="footer-tagline">Smart Finance. Simple Decisions.</div>
+        </div>
+        <div class="footer-badge">
+          <span>🎓</span> Designed for Financial Learning
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <div>
+          &copy; 2026 RITHIN FINANCE. Built for B.Com &amp; MBA Academic Excellence.
+        </div>
+        <div class="footer-links">
+          <a href="#dashboard" class="footer-link" onclick="window.navigateToTab('dashboard')">Dashboard</a>
+          <a href="#methods" class="footer-link" onclick="window.navigateToTab('methods')">Methods</a>
+          <a href="#compare" class="footer-link" onclick="window.navigateToTab('compare')">Compare</a>
+          <a href="#learn" class="footer-link" onclick="window.navigateToTab('learn')">Learn</a>
+          <a href="#about" class="footer-link" onclick="window.navigateToTab('about')">About</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Embedded All-In-One Application Script -->
+  <script>
+/**
+ * RITHIN FINANCE — Bundled Application Script
+ * Combines CalculatorEngine, ChartRenderer, QuizEngine, UIController, and RithinFinanceApp
+ * Works 100% offline and supports both http:// server and direct file:/// opening in all browsers.
+ */
+
+(function() {
+  'use strict';
+
+  /* ========================================================================
+     1. CALCULATOR ENGINE
+     ======================================================================== */
+  const CalculatorEngine = {
+    formatNumber(val, decimals = 2) {
+      if (val === null || val === undefined || isNaN(val)) return '0.00';
+      return Number(val).toLocaleString('en-IN', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    },
+
+    round2(val) {
+      return Math.round((Number(val) + Number.EPSILON) * 100) / 100;
+    },
+
+    calculateDividendPrice(d, p, currencySymbol = '₹') {
+      const div = parseFloat(d);
+      const price = parseFloat(p);
+
+      if (isNaN(div) || isNaN(price)) {
+        return { success: false, error: 'Please enter valid numbers for both Dividend and Market Price.' };
+      }
+      if (price <= 0) {
+        return { success: false, error: 'Market Price per Share (P) must be greater than zero.' };
+      }
+      if (div < 0) {
+        return { success: false, error: 'Dividend per Share (D) cannot be negative.' };
+      }
+
+      const ke = (div / price) * 100;
+      const keRounded = this.round2(ke);
+
+      return {
+        success: true,
+        methodName: 'Dividend Price Method',
+        ke: keRounded,
+        keFormatted: `${this.formatNumber(keRounded, 2)}%`,
+        inputs: { dividend: div, price: price, currencySymbol },
+        formula: 'Ke = (D / P) × 100',
+        variables: [
+          { symbol: 'D', name: 'Dividend per Share', value: `${currencySymbol}${this.formatNumber(div)}` },
+          { symbol: 'P', name: 'Market Price per Share', value: `${currencySymbol}${this.formatNumber(price)}` }
+        ],
+        steps: [
+          { label: 'Step 1: Identify Formula', expression: 'Ke = (Dividend per Share / Market Price per Share) × 100' },
+          { label: 'Step 2: Numerical Substitution', expression: `Ke = (${currencySymbol}${this.formatNumber(div)} / ${currencySymbol}${this.formatNumber(price)}) × 100` },
+          { label: 'Step 3: Calculate Dividend Ratio', expression: `${div} / ${price} = ${(div / price).toFixed(6)}` },
+          { label: 'Step 4: Multiply by 100 for Percentage', expression: `${(div / price).toFixed(6)} × 100 = ${this.formatNumber(keRounded, 2)}%` }
+        ],
+        summary: `At a dividend of ${currencySymbol}${this.formatNumber(div)} on a market price of ${currencySymbol}${this.formatNumber(price)}, the Cost of Equity (Ke) is ${this.formatNumber(keRounded, 2)}%.`
+      };
+    },
+
+    calculateDividendGrowth(d, gPct, p0, isD1Provided = false, currencySymbol = '₹') {
+      const divInput = parseFloat(d);
+      const growth = parseFloat(gPct);
+      const price = parseFloat(p0);
+
+      if (isNaN(divInput) || isNaN(growth) || isNaN(price)) {
+        return { success: false, error: 'Please enter valid numbers for Dividend, Growth Rate, and Market Price.' };
+      }
+      if (price <= 0) {
+        return { success: false, error: 'Current Market Price (P0) must be greater than zero.' };
+      }
+      if (divInput < 0) {
+        return { success: false, error: 'Dividend cannot be negative.' };
+      }
+
+      const gDec = growth / 100;
+      const d1 = isD1Provided ? divInput : divInput * (1 + gDec);
+      const divYieldPct = (d1 / price) * 100;
+      const ke = divYieldPct + growth;
+      const keRounded = this.round2(ke);
+      const d1Rounded = this.round2(d1);
+
+      const steps = [];
+      if (!isD1Provided) {
+        steps.push({
+          label: 'Step 1: Calculate Expected Dividend (D1)',
+          expression: `D1 = D0 × (1 + g) = ${currencySymbol}${this.formatNumber(divInput)} × (1 + ${growth}%) = ${currencySymbol}${this.formatNumber(divInput)} × ${(1 + gDec).toFixed(4)} = ${currencySymbol}${this.formatNumber(d1Rounded, 2)}`
+        });
+      } else {
+        steps.push({
+          label: 'Step 1: Expected Dividend (D1) Given',
+          expression: `D1 = ${currencySymbol}${this.formatNumber(d1Rounded, 2)}`
+        });
+      }
+
+      steps.push({
+        label: 'Step 2: Calculate Dividend Yield Component (D1 / P0)',
+        expression: `Dividend Yield = (${currencySymbol}${this.formatNumber(d1Rounded, 2)} / ${currencySymbol}${this.formatNumber(price)}) × 100 = ${this.formatNumber(divYieldPct, 2)}%`
+      });
+
+      steps.push({
+        label: 'Step 3: Add Dividend Growth Rate (g)',
+        expression: `Ke = Dividend Yield + Growth Rate = ${this.formatNumber(divYieldPct, 2)}% + ${this.formatNumber(growth, 2)}%`
+      });
+
+      steps.push({
+        label: 'Step 4: Final Cost of Equity (Ke)',
+        expression: `Ke = ${this.formatNumber(keRounded, 2)}%`
+      });
+
+      return {
+        success: true,
+        methodName: 'Dividend Yield + Growth Method',
+        ke: keRounded,
+        keFormatted: `${this.formatNumber(keRounded, 2)}%`,
+        inputs: { d0: isD1Provided ? null : divInput, d1: d1Rounded, growthRate: growth, price: price, isD1Provided, currencySymbol },
+        formula: 'Ke = (D1 / P0) + g',
+        subFormula: isD1Provided ? null : 'D1 = D0 × (1 + g)',
+        variables: [
+          { symbol: isD1Provided ? 'D1' : 'D0', name: isD1Provided ? 'Expected Dividend per Share' : 'Current Dividend per Share', value: `${currencySymbol}${this.formatNumber(divInput)}` },
+          { symbol: 'D1', name: 'Expected Next Year Dividend', value: `${currencySymbol}${this.formatNumber(d1Rounded)}` },
+          { symbol: 'g', name: 'Annual Dividend Growth Rate', value: `${this.formatNumber(growth)}%` },
+          { symbol: 'P0', name: 'Current Market Price per Share', value: `${currencySymbol}${this.formatNumber(price)}` }
+        ],
+        breakdown: { dividendYieldPct: this.round2(divYieldPct), growthRatePct: this.round2(growth) },
+        steps,
+        summary: `With an expected dividend of ${currencySymbol}${this.formatNumber(d1Rounded, 2)} and a growth rate of ${this.formatNumber(growth)}%, the Cost of Equity is ${this.formatNumber(keRounded, 2)}% (${this.formatNumber(divYieldPct, 2)}% yield + ${this.formatNumber(growth, 2)}% growth).`
+      };
+    },
+
+    calculateEarningsPrice(e, p, currencySymbol = '₹') {
+      const eps = parseFloat(e);
+      const price = parseFloat(p);
+
+      if (isNaN(eps) || isNaN(price)) {
+        return { success: false, error: 'Please enter valid numbers for Earnings per Share (EPS) and Market Price.' };
+      }
+      if (price <= 0) {
+        return { success: false, error: 'Market Price per Share (P) must be greater than zero.' };
+      }
+
+      const ke = (eps / price) * 100;
+      const keRounded = this.round2(ke);
+      const peRatio = eps > 0 ? this.round2(price / eps) : null;
+
+      return {
+        success: true,
+        methodName: 'Earnings Price Method',
+        ke: keRounded,
+        keFormatted: `${this.formatNumber(keRounded, 2)}%`,
+        inputs: { eps: eps, price: price, currencySymbol },
+        formula: 'Ke = (E / P) × 100',
+        variables: [
+          { symbol: 'E', name: 'Earnings per Share (EPS)', value: `${currencySymbol}${this.formatNumber(eps)}` },
+          { symbol: 'P', name: 'Market Price per Share', value: `${currencySymbol}${this.formatNumber(price)}` }
+        ],
+        steps: [
+          { label: 'Step 1: Identify Formula', expression: 'Ke = (Earnings per Share / Market Price per Share) × 100' },
+          { label: 'Step 2: Numerical Substitution', expression: `Ke = (${currencySymbol}${this.formatNumber(eps)} / ${currencySymbol}${this.formatNumber(price)}) × 100` },
+          { label: 'Step 3: Calculate Earnings Yield Ratio', expression: `${eps} / ${price} = ${(eps / price).toFixed(6)}` },
+          { label: 'Step 4: Express as Percentage', expression: `${(eps / price).toFixed(6)} × 100 = ${this.formatNumber(keRounded, 2)}%` }
+        ],
+        summary: `With EPS of ${currencySymbol}${this.formatNumber(eps)} and market price of ${currencySymbol}${this.formatNumber(price)}, the earnings yield (Ke) is ${this.formatNumber(keRounded, 2)}% (equivalent to a P/E multiple of ${peRatio ? peRatio + 'x' : 'N/A'}).`
+      };
+    },
+
+    calculateRealisedYield(p0, p1, d, currencySymbol = '₹') {
+      const startPrice = parseFloat(p0);
+      const endPrice = parseFloat(p1);
+      const dividend = parseFloat(d);
+
+      if (isNaN(startPrice) || isNaN(endPrice) || isNaN(dividend)) {
+        return { success: false, error: 'Please enter valid numbers for Beginning Price, Ending Price, and Dividend.' };
+      }
+      if (startPrice <= 0) {
+        return { success: false, error: 'Beginning Market Price (P0) must be greater than zero.' };
+      }
+      if (dividend < 0) {
+        return { success: false, error: 'Dividend received (D) cannot be negative.' };
+      }
+
+      const capitalGain = endPrice - startPrice;
+      const totalReturn = dividend + capitalGain;
+      const yieldPct = (totalReturn / startPrice) * 100;
+      const yieldRounded = this.round2(yieldPct);
+
+      return {
+        success: true,
+        methodName: 'Realised Yield Method',
+        ke: yieldRounded,
+        keFormatted: `${this.formatNumber(yieldRounded, 2)}%`,
+        inputs: { p0: startPrice, p1: endPrice, dividend: dividend, currencySymbol },
+        formula: 'Realised Yield = [(D + (P1 - P0)) / P0] × 100',
+        variables: [
+          { symbol: 'D', name: 'Dividend Received During Period', value: `${currencySymbol}${this.formatNumber(dividend)}` },
+          { symbol: 'P0', name: 'Beginning Market Price', value: `${currencySymbol}${this.formatNumber(startPrice)}` },
+          { symbol: 'P1', name: 'Ending Market Price', value: `${currencySymbol}${this.formatNumber(endPrice)}` },
+          { symbol: 'P1 - P0', name: 'Capital Gain / Loss', value: `${currencySymbol}${this.formatNumber(capitalGain)}` }
+        ],
+        steps: [
+          { label: 'Step 1: Compute Capital Gain / Loss (P1 - P0)', expression: `Capital Gain = ${currencySymbol}${this.formatNumber(endPrice)} - ${currencySymbol}${this.formatNumber(startPrice)} = ${currencySymbol}${this.formatNumber(capitalGain)}` },
+          { label: 'Step 2: Compute Total Investor Cash Return [D + (P1 - P0)]', expression: `Total Cash Return = ${currencySymbol}${this.formatNumber(dividend)} + (${currencySymbol}${this.formatNumber(capitalGain)}) = ${currencySymbol}${this.formatNumber(totalReturn)}` },
+          { label: 'Step 3: Divide Total Return by Initial Price (P0)', expression: `Return Ratio = ${currencySymbol}${this.formatNumber(totalReturn)} / ${currencySymbol}${this.formatNumber(startPrice)} = ${(totalReturn / startPrice).toFixed(6)}` },
+          { label: 'Step 4: Multiply by 100 for Realised Yield %', expression: `Realised Yield = ${(totalReturn / startPrice).toFixed(6)} × 100 = ${this.formatNumber(yieldRounded, 2)}%` }
+        ],
+        summary: `The total historical return is ${currencySymbol}${this.formatNumber(totalReturn)} (${currencySymbol}${this.formatNumber(dividend)} dividend + ${currencySymbol}${this.formatNumber(capitalGain)} capital gain), yielding an effective return of ${this.formatNumber(yieldRounded, 2)}% on beginning investment.`
+      };
+    },
+
+    calculateAllMethods(data, currencySymbol = '₹') {
+      const res1 = this.calculateDividendPrice(data.dividend, data.currentPrice, currencySymbol);
+      const res2 = this.calculateDividendGrowth(data.dividend, data.growthRate, data.currentPrice, false, currencySymbol);
+      const res3 = this.calculateEarningsPrice(data.eps, data.currentPrice, currencySymbol);
+      const res4 = this.calculateRealisedYield(data.beginningPrice || data.currentPrice, data.endingPrice, data.dividend, currencySymbol);
+
+      return { method1: res1, method2: res2, method3: res3, method4: res4 };
+    }
+  };
+
+  /* ========================================================================
+     2. CHART RENDERER
+     ======================================================================== */
+  const ChartRenderer = {
+    chartInstance: null,
+
+    render(canvasId, fallbackId, data) {
+      const canvas = document.getElementById(canvasId);
+      const fallbackContainer = document.getElementById(fallbackId);
+
+      if (window.Chart && canvas) {
+        try {
+          if (fallbackContainer) fallbackContainer.style.display = 'none';
+          canvas.style.display = 'block';
+          this.renderChartJs(canvas, data);
+          return;
+        } catch (err) {
+          console.warn('Chart.js rendering failed, falling back to SVG/HTML renderer:', err);
+        }
+      }
+
+      if (canvas) canvas.style.display = 'none';
+      if (fallbackContainer) {
+        fallbackContainer.style.display = 'flex';
+        this.renderFallbackBars(fallbackContainer, data);
+      }
+    },
+
+    renderChartJs(canvas, data) {
+      const ctx = canvas.getContext('2d');
+      if (this.chartInstance) {
+        this.chartInstance.destroy();
+      }
+
+      const labels = data.map(item => item.name);
+      const values = data.map(item => item.value);
+      const colors = data.map(item => item.color || '#6366F1');
+
+      this.chartInstance = new window.Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Cost of Equity (%)',
+            data: values,
+            backgroundColor: colors.map(c => c + 'CC'),
+            borderColor: colors,
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false,
+            barThickness: 42,
+            maxBarThickness: 56
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 800, easing: 'easeOutQuart' },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0F172A',
+              titleColor: '#F8FAFC',
+              bodyColor: '#38BDF8',
+              borderColor: 'rgba(255, 255, 255, 0.1)',
+              borderWidth: 1,
+              padding: 12,
+              titleFont: { family: 'Plus Jakarta Sans', size: 13, weight: '700' },
+              bodyFont: { family: 'JetBrains Mono', size: 14, weight: '600' },
+              displayColors: false,
+              callbacks: {
+                label: (context) => `Cost of Equity: ${context.parsed.y.toFixed(2)}%`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false, drawBorder: false },
+              ticks: { color: '#94A3B8', font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' } }
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+              ticks: {
+                color: '#64748B',
+                font: { family: 'JetBrains Mono', size: 11 },
+                callback: (val) => val + '%'
+              }
+            }
+          }
+        }
+      });
+    },
+
+    renderFallbackBars(container, data) {
+      container.innerHTML = '';
+      const maxVal = Math.max(...data.map(d => Math.abs(d.value)), 20);
+
+      data.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'bar-row';
+        const widthPct = Math.min(Math.max((Math.abs(item.value) / maxVal) * 100, 4), 100);
+
+        row.innerHTML = `
+          <div class="bar-method-name">${item.name}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: 0%; background: ${item.color || '#6366F1'};" data-target-width="${widthPct}%">
+              ${item.value.toFixed(2)}%
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      setTimeout(() => {
+        container.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-target-width');
+        });
+      }, 50);
+    }
+  };
+
+  /* ========================================================================
+     3. QUIZ ENGINE
+     ======================================================================== */
+  const QuizEngine = {
+    questions: [
+      {
+        id: 1,
+        question: "Which method assumes that the company pays a constant dividend and experiences zero dividend growth?",
+        options: [
+          "Dividend Yield + Growth Method",
+          "Dividend Price Method",
+          "Earnings Price Method",
+          "Realised Yield Method"
+        ],
+        correctIndex: 1,
+        explanation: "The Dividend Price Method (Ke = D / P × 100) assumes that dividends remain constant indefinitely with no growth (g = 0)."
+      },
+      {
+        id: 2,
+        question: "In the Gordon Growth Model (Ke = D1 / P0 + g), what does 'D1' represent?",
+        options: [
+          "Past year's dividend paid",
+          "Expected dividend for the next period [D0 × (1 + g)]",
+          "Total retained earnings per share",
+          "Dividend after corporate tax"
+        ],
+        correctIndex: 1,
+        explanation: "D1 is the expected next-period dividend. If the current dividend (D0) is given, D1 is calculated as D0 × (1 + g)."
+      },
+      {
+        id: 3,
+        question: "Why might the Earnings Price Method (Ke = E / P × 100) be preferred over the Dividend Price Method when evaluating growth firms?",
+        options: [
+          "Because growth firms often reinvest earnings instead of paying high dividends",
+          "Because earnings are always equal to market price",
+          "Because dividends are illegal for newly formed firms",
+          "Because EPS has no tax implications"
+        ],
+        correctIndex: 0,
+        explanation: "Growth companies frequently retain 70%–100% of their profits for capital expansion. The Earnings Price Method captures the full earning power attributable to equity holders, not just the distributed dividend."
+      },
+      {
+        id: 4,
+        question: "What distinguishes the Realised Yield Method from the other three Cost of Equity models?",
+        options: [
+          "It uses historical actual returns (past dividends + price changes) instead of forward-looking estimates",
+          "It cannot be used for listed public companies",
+          "It ignores capital appreciation completely",
+          "It guarantees the exact future return of equity"
+        ],
+        correctIndex: 0,
+        explanation: "The Realised Yield Method computes the actual return realised by an investor in the past: [D + (P1 - P0)] / P0 × 100, under the assumption that past returns mirror future shareholder expectations."
+      },
+      {
+        id: 5,
+        question: "When comparing the four methods on the same firm, why do the resulting Cost of Equity percentages often differ?",
+        options: [
+          "One method is always mathematically wrong",
+          "Each method relies on distinct underlying assumptions (dividend payout, retention, growth, and historical performance)",
+          "Calculators round to different decimal places",
+          "Government regulations force them to differ"
+        ],
+        correctIndex: 1,
+        explanation: "Each method captures different facets of equity valuation. Dividend Price assumes zero growth, Gordon assumes perpetual growth, Earnings Price assumes full earning entitlement, and Realised Yield reflects past market reality."
+      }
+    ],
+
+    currentIndex: 0,
+    score: 0,
+    answered: false,
+
+    init(containerId) {
+      this.container = document.getElementById(containerId);
+      if (!this.container) return;
+      this.currentIndex = 0;
+      this.score = 0;
+      this.answered = false;
+      this.renderQuestion();
+    },
+
+    renderQuestion() {
+      if (this.currentIndex >= this.questions.length) {
+        this.renderScore();
+        return;
+      }
+
+      const q = this.questions[this.currentIndex];
+      this.answered = false;
+
+      this.container.innerHTML = `
+        <div class="quiz-header">
+          <div style="font-weight: 700; color: #A5B4FC; font-size: 0.9rem;">
+            QUESTION ${this.currentIndex + 1} OF ${this.questions.length}
+          </div>
+          <div class="quiz-progress-text">Score: ${this.score} / ${this.questions.length}</div>
+        </div>
+
+        <div class="quiz-question-box">
+          <h3 class="quiz-question-title">${q.question}</h3>
+          <div class="quiz-options-list">
+            ${q.options.map((opt, idx) => `
+              <button type="button" class="quiz-option-btn" data-index="${idx}">
+                <span class="quiz-option-letter">${String.fromCharCode(65 + idx)}</span>
+                <span>${opt}</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="quiz-feedback-box" id="quiz-feedback"></div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="quiz-skip-btn">Skip Question</button>
+          <button type="button" class="btn btn-primary btn-sm" id="quiz-next-btn" style="display: none;">Next Question →</button>
+        </div>
+      `;
+
+      const optionBtns = this.container.querySelectorAll('.quiz-option-btn');
+      optionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const selectedIdx = parseInt(btn.getAttribute('data-index'), 10);
+          this.handleAnswer(selectedIdx);
+        });
+      });
+
+      const nextBtn = this.container.querySelector('#quiz-next-btn');
+      nextBtn.addEventListener('click', () => {
+        this.currentIndex++;
+        this.renderQuestion();
+      });
+
+      const skipBtn = this.container.querySelector('#quiz-skip-btn');
+      skipBtn.addEventListener('click', () => {
+        this.currentIndex++;
+        this.renderQuestion();
+      });
+    },
+
+    handleAnswer(selectedIdx) {
+      if (this.answered) return;
+      this.answered = true;
+
+      const q = this.questions[this.currentIndex];
+      const optionBtns = this.container.querySelectorAll('.quiz-option-btn');
+      const feedbackBox = this.container.querySelector('#quiz-feedback');
+      const nextBtn = this.container.querySelector('#quiz-next-btn');
+      const skipBtn = this.container.querySelector('#quiz-skip-btn');
+
+      optionBtns.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correctIndex) {
+          btn.classList.add('correct');
+        } else if (idx === selectedIdx) {
+          btn.classList.add('incorrect');
+        }
+      });
+
+      if (selectedIdx === q.correctIndex) {
+        this.score++;
+        feedbackBox.innerHTML = `
+          <div style="color: #34D399; font-weight: 700; margin-bottom: 0.25rem;">✓ Correct!</div>
+          <div>${q.explanation}</div>
+        `;
+        feedbackBox.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+      } else {
+        feedbackBox.innerHTML = `
+          <div style="color: #F87171; font-weight: 700; margin-bottom: 0.25rem;">✗ Incorrect</div>
+          <div>${q.explanation}</div>
+        `;
+        feedbackBox.style.borderColor = 'rgba(244, 63, 94, 0.4)';
+      }
+
+      feedbackBox.classList.add('visible');
+      nextBtn.style.display = 'inline-flex';
+      skipBtn.style.display = 'none';
+    },
+
+    renderScore() {
+      const percentage = Math.round((this.score / this.questions.length) * 100);
+      let feedbackTitle = "Great Job!";
+      let feedbackBadge = "Finance Mastery";
+
+      if (percentage === 100) {
+        feedbackTitle = "Outstanding Mastery!";
+        feedbackBadge = "Top Score: 100%";
+      } else if (percentage >= 60) {
+        feedbackTitle = "Well Done!";
+        feedbackBadge = "Solid Understanding";
+      } else {
+        feedbackTitle = "Keep Practicing!";
+        feedbackBadge = "Review Recommended";
+      }
+
+      this.container.innerHTML = `
+        <div style="text-align: center; padding: 2.5rem 1rem;">
+          <div class="hero-badge-pill" style="margin-bottom: 1rem;">${feedbackBadge}</div>
+          <h3 style="font-size: 2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem;">${feedbackTitle}</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">You scored ${this.score} out of ${this.questions.length} (${percentage}%).</p>
+
+          <div style="font-family: var(--font-mono); font-size: 3.5rem; font-weight: 800; color: #10B981; margin-bottom: 1.5rem;">
+            ${percentage}%
+          </div>
+
+          <button type="button" class="btn btn-primary" id="quiz-restart-btn">
+            Retake Quiz ↺
+          </button>
+        </div>
+      `;
+
+      this.container.querySelector('#quiz-restart-btn').addEventListener('click', () => {
+        this.init('quiz-container');
+      });
+    }
+  };
+
+  /* ========================================================================
+     4. UI CONTROLLER
+     ======================================================================== */
+  const UIController = {
+    currencySymbol: '₹',
+
+    init() {
+      this.bindMethod1();
+      this.bindMethod2();
+      this.bindMethod3();
+      this.bindMethod4();
+      this.bindCompare();
+      this.initToast();
+
+      this.runMethod1();
+      this.runMethod2();
+      this.runMethod3();
+      this.runMethod4();
+      this.runCompare();
+    },
+
+    setCurrency(symbol) {
+      this.currencySymbol = symbol;
+      document.querySelectorAll('.curr-sym').forEach(el => el.textContent = symbol);
+      this.runMethod1();
+      this.runMethod2();
+      this.runMethod3();
+      this.runMethod4();
+      this.runCompare();
+    },
+
+    showToast(message) {
+      const toast = document.getElementById('toast-notice');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(this.toastTimeout);
+      this.toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    },
+
+    initToast() {
+      if (!document.getElementById('toast-notice')) {
+        const toast = document.createElement('div');
+        toast.id = 'toast-notice';
+        toast.className = 'toast-notice';
+        document.body.appendChild(toast);
+      }
+    },
+
+    animateCounter(element, targetVal, duration = 600) {
+      if (!element) return;
+      element.classList.remove('popping');
+      void element.offsetWidth;
+      element.classList.add('popping');
+
+      const startVal = parseFloat(element.getAttribute('data-current-val') || '0');
+      const startTime = performance.now();
+
+      const update = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = startVal + (targetVal - startVal) * ease;
+        element.textContent = `${current.toFixed(2)}%`;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = `${targetVal.toFixed(2)}%`;
+          element.setAttribute('data-current-val', targetVal.toString());
+        }
+      };
+
+      requestAnimationFrame(update);
+    },
+
+    renderResultCard(containerId, result) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      if (!result.success) {
+        container.innerHTML = `
+          <div class="calc-error-box visible">
+            <span>⚠️</span>
+            <span>${result.error}</span>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div class="result-header">
+          <div>
+            <div class="result-tag">Calculated Result</div>
+            <div class="result-method-name">${result.methodName}</div>
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" id="${containerId}-copy-btn" title="Copy calculation summary">
+            📋 Copy Summary
+          </button>
+        </div>
+
+        <div class="result-hero-box">
+          <div class="result-hero-label">COST OF EQUITY (Ke)</div>
+          <div class="result-hero-value" id="${containerId}-hero-val" data-current-val="0">${result.keFormatted}</div>
+          <div class="result-hero-sublabel">Expected rate of return required by equity shareholders</div>
+        </div>
+
+        <div class="breakdown-section-title">
+          <span>🔢</span> Given Parameters
+        </div>
+        <div class="variables-grid">
+          ${result.variables.map(v => `
+            <div class="var-pill">
+              <div class="var-symbol">${v.symbol}</div>
+              <div class="var-name">${v.name}</div>
+              <div class="var-val">${v.value}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="breakdown-section-title">
+          <span>📐</span> Step-by-Step Mathematical Substitution
+        </div>
+        <div class="steps-list">
+          ${result.steps.map(s => `
+            <div class="step-item">
+              <div class="step-label">${s.label}</div>
+              <div class="step-expr">${s.expression}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="font-size: 0.825rem; color: var(--text-secondary); background: var(--bg-dark-900); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border); margin-bottom: 1.5rem;">
+          💡 <strong>Interpretation:</strong> ${result.summary}
+        </div>
+
+        <div class="result-actions">
+          <button type="button" class="btn btn-secondary btn-sm" id="${containerId}-recalc-btn">
+            ↺ Calculate Again
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="${containerId}-reset-btn">
+            ✕ Reset
+          </button>
+          <button type="button" class="btn btn-primary btn-sm" id="${containerId}-compare-btn">
+            📊 Compare All 4 Methods →
+          </button>
+        </div>
+      `;
+
+      const heroValEl = container.querySelector(`#${containerId}-hero-val`);
+      this.animateCounter(heroValEl, result.ke);
+
+      const copyBtn = container.querySelector(`#${containerId}-copy-btn`);
+      copyBtn.addEventListener('click', () => {
+        const summaryText = `[RITHIN FINANCE] ${result.methodName}\nResult: Ke = ${result.keFormatted}\nFormula: ${result.formula}\n\n` +
+          result.steps.map(s => `${s.label}:\n  ${s.expression}`).join('\n') + `\n\nSummary: ${result.summary}`;
+        navigator.clipboard.writeText(summaryText).then(() => {
+          this.showToast('Calculation summary copied to clipboard!');
+        }).catch(() => {
+          this.showToast('Summary ready to copy!');
+        });
+      });
+
+      const recalcBtn = container.querySelector(`#${containerId}-recalc-btn`);
+      recalcBtn.addEventListener('click', () => {
+        const firstInput = container.closest('.calculator-layout')?.querySelector('input');
+        if (firstInput) firstInput.focus();
+      });
+
+      const compareBtn = container.querySelector(`#${containerId}-compare-btn`);
+      compareBtn.addEventListener('click', () => {
+        window.navigateToTab('compare');
+      });
+    },
+
+    bindMethod1() {
+      const dInput = document.getElementById('m1-dividend');
+      const pInput = document.getElementById('m1-price');
+      const calcBtn = document.getElementById('m1-calc-btn');
+      const resetBtn = document.getElementById('m1-reset-btn');
+      const exampleBtn = document.getElementById('m1-example-btn');
+
+      const update = () => this.runMethod1();
+
+      [dInput, pInput].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', update);
+          inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') update(); });
+        }
+      });
+
+      if (calcBtn) calcBtn.addEventListener('click', update);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (dInput) dInput.value = '';
+          if (pInput) pInput.value = '';
+          update();
+          if (dInput) dInput.focus();
+        });
+      }
+
+      if (exampleBtn) {
+        exampleBtn.addEventListener('click', () => {
+          if (dInput) dInput.value = '8';
+          if (pInput) pInput.value = '100';
+          update();
+          this.showToast('Loaded textbook example: D = ₹8, P = ₹100');
+        });
+      }
+    },
+
+    runMethod1() {
+      const d = document.getElementById('m1-dividend')?.value;
+      const p = document.getElementById('m1-price')?.value;
+      const errorBox = document.getElementById('m1-error-box');
+
+      if (!d || !p) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter both Dividend per Share and Market Price.';
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      const result = CalculatorEngine.calculateDividendPrice(d, p, this.currencySymbol);
+      if (!result.success) {
+        if (errorBox) {
+          errorBox.textContent = result.error;
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      if (errorBox) errorBox.classList.remove('visible');
+      this.renderResultCard('m1-result-container', result);
+
+      const cardResetBtn = document.getElementById('m1-result-container-reset-btn');
+      if (cardResetBtn) {
+        cardResetBtn.addEventListener('click', () => {
+          document.getElementById('m1-reset-btn')?.click();
+        });
+      }
+    },
+
+    bindMethod2() {
+      const dInput = document.getElementById('m2-dividend');
+      const gInput = document.getElementById('m2-growth');
+      const pInput = document.getElementById('m2-price');
+      const dToggle = document.getElementById('m2-is-d1-toggle');
+      const dLabel = document.getElementById('m2-div-label');
+      const calcBtn = document.getElementById('m2-calc-btn');
+      const resetBtn = document.getElementById('m2-reset-btn');
+      const exampleBtn = document.getElementById('m2-example-btn');
+
+      const update = () => this.runMethod2();
+
+      [dInput, gInput, pInput].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', update);
+          inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') update(); });
+        }
+      });
+
+      if (dToggle) {
+        dToggle.addEventListener('change', () => {
+          if (dLabel) {
+            dLabel.textContent = dToggle.checked ? 'Expected Next Year Dividend (D1)' : 'Current Dividend per Share (D0)';
+          }
+          update();
+        });
+      }
+
+      if (calcBtn) calcBtn.addEventListener('click', update);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (dInput) dInput.value = '';
+          if (gInput) gInput.value = '';
+          if (pInput) pInput.value = '';
+          if (dToggle) dToggle.checked = false;
+          if (dLabel) dLabel.textContent = 'Current Dividend per Share (D0)';
+          update();
+          if (dInput) dInput.focus();
+        });
+      }
+
+      if (exampleBtn) {
+        exampleBtn.addEventListener('click', () => {
+          if (dInput) dInput.value = '8';
+          if (gInput) gInput.value = '5';
+          if (pInput) pInput.value = '100';
+          if (dToggle) dToggle.checked = false;
+          if (dLabel) dLabel.textContent = 'Current Dividend per Share (D0)';
+          update();
+          this.showToast('Loaded textbook example: D0 = ₹8, g = 5%, P0 = ₹100');
+        });
+      }
+    },
+
+    runMethod2() {
+      const d = document.getElementById('m2-dividend')?.value;
+      const g = document.getElementById('m2-growth')?.value;
+      const p = document.getElementById('m2-price')?.value;
+      const isD1 = document.getElementById('m2-is-d1-toggle')?.checked || false;
+      const errorBox = document.getElementById('m2-error-box');
+
+      if (!d || !g || !p) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter Dividend, Growth Rate, and Market Price.';
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      const result = CalculatorEngine.calculateDividendGrowth(d, g, p, isD1, this.currencySymbol);
+      if (!result.success) {
+        if (errorBox) {
+          errorBox.textContent = result.error;
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      if (errorBox) errorBox.classList.remove('visible');
+      this.renderResultCard('m2-result-container', result);
+
+      const cardResetBtn = document.getElementById('m2-result-container-reset-btn');
+      if (cardResetBtn) {
+        cardResetBtn.addEventListener('click', () => {
+          document.getElementById('m2-reset-btn')?.click();
+        });
+      }
+    },
+
+    bindMethod3() {
+      const epsInput = document.getElementById('m3-eps');
+      const pInput = document.getElementById('m3-price');
+      const calcBtn = document.getElementById('m3-calc-btn');
+      const resetBtn = document.getElementById('m3-reset-btn');
+      const exampleBtn = document.getElementById('m3-example-btn');
+
+      const update = () => this.runMethod3();
+
+      [epsInput, pInput].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', update);
+          inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') update(); });
+        }
+      });
+
+      if (calcBtn) calcBtn.addEventListener('click', update);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (epsInput) epsInput.value = '';
+          if (pInput) pInput.value = '';
+          update();
+          if (epsInput) epsInput.focus();
+        });
+      }
+
+      if (exampleBtn) {
+        exampleBtn.addEventListener('click', () => {
+          if (epsInput) epsInput.value = '12';
+          if (pInput) pInput.value = '120';
+          update();
+          this.showToast('Loaded textbook example: EPS = ₹12, P = ₹120');
+        });
+      }
+    },
+
+    runMethod3() {
+      const eps = document.getElementById('m3-eps')?.value;
+      const p = document.getElementById('m3-price')?.value;
+      const errorBox = document.getElementById('m3-error-box');
+
+      if (!eps || !p) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter Earnings per Share (EPS) and Market Price.';
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      const result = CalculatorEngine.calculateEarningsPrice(eps, p, this.currencySymbol);
+      if (!result.success) {
+        if (errorBox) {
+          errorBox.textContent = result.error;
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      if (errorBox) errorBox.classList.remove('visible');
+      this.renderResultCard('m3-result-container', result);
+
+      const cardResetBtn = document.getElementById('m3-result-container-reset-btn');
+      if (cardResetBtn) {
+        cardResetBtn.addEventListener('click', () => {
+          document.getElementById('m3-reset-btn')?.click();
+        });
+      }
+    },
+
+    bindMethod4() {
+      const p0Input = document.getElementById('m4-p0');
+      const p1Input = document.getElementById('m4-p1');
+      const dInput = document.getElementById('m4-dividend');
+      const calcBtn = document.getElementById('m4-calc-btn');
+      const resetBtn = document.getElementById('m4-reset-btn');
+      const exampleBtn = document.getElementById('m4-example-btn');
+
+      const update = () => this.runMethod4();
+
+      [p0Input, p1Input, dInput].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', update);
+          inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') update(); });
+        }
+      });
+
+      if (calcBtn) calcBtn.addEventListener('click', update);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (p0Input) p0Input.value = '';
+          if (p1Input) p1Input.value = '';
+          if (dInput) dInput.value = '';
+          update();
+          if (p0Input) p0Input.focus();
+        });
+      }
+
+      if (exampleBtn) {
+        exampleBtn.addEventListener('click', () => {
+          if (p0Input) p0Input.value = '100';
+          if (p1Input) p1Input.value = '110';
+          if (dInput) dInput.value = '5';
+          update();
+          this.showToast('Loaded textbook example: P0 = ₹100, P1 = ₹110, D = ₹5');
+        });
+      }
+    },
+
+    runMethod4() {
+      const p0 = document.getElementById('m4-p0')?.value;
+      const p1 = document.getElementById('m4-p1')?.value;
+      const d = document.getElementById('m4-dividend')?.value;
+      const errorBox = document.getElementById('m4-error-box');
+
+      if (!p0 || !p1 || !d) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter Beginning Price, Ending Price, and Dividend Received.';
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      const result = CalculatorEngine.calculateRealisedYield(p0, p1, d, this.currencySymbol);
+      if (!result.success) {
+        if (errorBox) {
+          errorBox.textContent = result.error;
+          errorBox.classList.add('visible');
+        }
+        return;
+      }
+
+      if (errorBox) errorBox.classList.remove('visible');
+      this.renderResultCard('m4-result-container', result);
+
+      const cardResetBtn = document.getElementById('m4-result-container-reset-btn');
+      if (cardResetBtn) {
+        cardResetBtn.addEventListener('click', () => {
+          document.getElementById('m4-reset-btn')?.click();
+        });
+      }
+    },
+
+    bindCompare() {
+      const divInp = document.getElementById('cmp-dividend');
+      const priceInp = document.getElementById('cmp-price');
+      const growthInp = document.getElementById('cmp-growth');
+      const epsInp = document.getElementById('cmp-eps');
+      const p1Inp = document.getElementById('cmp-p1');
+      const calcBtn = document.getElementById('cmp-calc-btn');
+      const resetBtn = document.getElementById('cmp-reset-btn');
+
+      const update = () => this.runCompare();
+
+      [divInp, priceInp, growthInp, epsInp, p1Inp].forEach(inp => {
+        if (inp) {
+          inp.addEventListener('input', update);
+          inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') update(); });
+        }
+      });
+
+      if (calcBtn) calcBtn.addEventListener('click', update);
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (divInp) divInp.value = '8';
+          if (priceInp) priceInp.value = '100';
+          if (growthInp) growthInp.value = '5.4';
+          if (epsInp) epsInp.value = '10';
+          if (p1Inp) p1Inp.value = '115';
+          update();
+          this.showToast('Reset comparison scenario to standard benchmark.');
+        });
+      }
+
+      document.querySelectorAll('.cmp-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const scenario = btn.getAttribute('data-scenario');
+          this.loadCompareScenario(scenario);
+        });
+      });
+    },
+
+    loadCompareScenario(scenario) {
+      const divInp = document.getElementById('cmp-dividend');
+      const priceInp = document.getElementById('cmp-price');
+      const growthInp = document.getElementById('cmp-growth');
+      const epsInp = document.getElementById('cmp-eps');
+      const p1Inp = document.getElementById('cmp-p1');
+
+      if (scenario === 'fmcg') {
+        if (divInp) divInp.value = '14';
+        if (priceInp) priceInp.value = '200';
+        if (growthInp) growthInp.value = '4';
+        if (epsInp) epsInp.value = '16';
+        if (p1Inp) p1Inp.value = '218';
+        this.showToast('Loaded Scenario: Mature FMCG Blue-Chip');
+      } else if (scenario === 'tech') {
+        if (divInp) divInp.value = '4';
+        if (priceInp) priceInp.value = '150';
+        if (growthInp) growthInp.value = '9';
+        if (epsInp) epsInp.value = '15';
+        if (p1Inp) p1Inp.value = '180';
+        this.showToast('Loaded Scenario: High-Growth Technology Firm');
+      } else {
+        if (divInp) divInp.value = '8';
+        if (priceInp) priceInp.value = '100';
+        if (growthInp) growthInp.value = '5';
+        if (epsInp) epsInp.value = '10';
+        if (p1Inp) p1Inp.value = '110';
+        this.showToast('Loaded Scenario: Textbook Benchmark');
+      }
+
+      this.runCompare();
+    },
+
+    runCompare() {
+      const div = parseFloat(document.getElementById('cmp-dividend')?.value || '8');
+      const price = parseFloat(document.getElementById('cmp-price')?.value || '100');
+      const growth = parseFloat(document.getElementById('cmp-growth')?.value || '5');
+      const eps = parseFloat(document.getElementById('cmp-eps')?.value || '10');
+      const p1 = parseFloat(document.getElementById('cmp-p1')?.value || '110');
+
+      if (isNaN(price) || price <= 0) return;
+
+      const data = {
+        dividend: div,
+        currentPrice: price,
+        growthRate: growth,
+        eps: eps,
+        beginningPrice: price,
+        endingPrice: p1
+      };
+
+      const results = CalculatorEngine.calculateAllMethods(data, this.currencySymbol);
+
+      const c1Val = document.getElementById('cmp-card-1-val');
+      const c2Val = document.getElementById('cmp-card-2-val');
+      const c3Val = document.getElementById('cmp-card-3-val');
+      const c4Val = document.getElementById('cmp-card-4-val');
+
+      if (c1Val && results.method1.success) c1Val.textContent = `${results.method1.ke.toFixed(2)}%`;
+      if (c2Val && results.method2.success) c2Val.textContent = `${results.method2.ke.toFixed(2)}%`;
+      if (c3Val && results.method3.success) c3Val.textContent = `${results.method3.ke.toFixed(2)}%`;
+      if (c4Val && results.method4.success) c4Val.textContent = `${results.method4.ke.toFixed(2)}%`;
+
+      const chartData = [
+        { name: 'Dividend Price', value: results.method1.success ? results.method1.ke : 0, color: '#38BDF8' },
+        { name: 'Dividend + Growth', value: results.method2.success ? results.method2.ke : 0, color: '#10B981' },
+        { name: 'Earnings Price', value: results.method3.success ? results.method3.ke : 0, color: '#F59E0B' },
+        { name: 'Realised Yield', value: results.method4.success ? results.method4.ke : 0, color: '#A855F7' }
+      ];
+
+      ChartRenderer.render('compare-chart-canvas', 'compare-chart-fallback', chartData);
+    }
+  };
+
+  /* ========================================================================
+     5. APP CONTROLLER & ROUTER
+     ======================================================================== */
+  class RithinFinanceApp {
+    constructor() {
+      this.currentTab = 'dashboard';
+      this.currentMethod = 'm1';
+    }
+
+    init() {
+      this.setupNavigation();
+      this.setupCurrencyToggle();
+      this.setupMethodSubNav();
+      UIController.init();
+      QuizEngine.init('quiz-container');
+
+      const initialHash = window.location.hash.replace('#', '');
+      if (initialHash) {
+        this.navigateTo(initialHash);
+      } else {
+        this.navigateTo('dashboard');
+      }
+
+      window.navigateToTab = (tabId, methodId = null) => {
+        this.navigateTo(tabId, methodId);
+      };
+
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && hash !== this.currentTab) {
+          this.navigateTo(hash, null, false);
+        }
+      });
+    }
+
+    setupNavigation() {
+      const navButtons = document.querySelectorAll('.nav-tab-btn');
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tabId = btn.getAttribute('data-tab');
+          this.navigateTo(tabId);
+        });
+      });
+    }
+
+    setupMethodSubNav() {
+      const methodPills = document.querySelectorAll('.calc-pill-btn');
+      methodPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const methodKey = pill.getAttribute('data-method');
+          this.switchMethod(methodKey);
+        });
+      });
+    }
+
+    setupCurrencyToggle() {
+      const currencySelect = document.getElementById('currency-select');
+      if (currencySelect) {
+        currencySelect.addEventListener('change', (e) => {
+          const symbol = e.target.value;
+          UIController.setCurrency(symbol);
+          UIController.showToast(`Currency set to ${symbol}`);
+        });
+      }
+    }
+
+    switchMethod(methodKey) {
+      this.currentMethod = methodKey;
+
+      document.querySelectorAll('.calc-pill-btn').forEach(pill => {
+        if (pill.getAttribute('data-method') === methodKey) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('.method-calc-panel').forEach(panel => {
+        if (panel.id === `panel-${methodKey}`) {
+          panel.style.display = 'grid';
+        } else {
+          panel.style.display = 'none';
+        }
+      });
+
+      if (methodKey === 'm1') UIController.runMethod1();
+      if (methodKey === 'm2') UIController.runMethod2();
+      if (methodKey === 'm3') UIController.runMethod3();
+      if (methodKey === 'm4') UIController.runMethod4();
+    }
+
+    navigateTo(tabId, methodId = null, updateHash = true) {
+      if (tabId.startsWith('method-') || tabId.startsWith('m')) {
+        const parsedMethod = tabId.replace('method-', '').replace('methods-', '');
+        const mapped = parsedMethod.length === 1 ? `m${parsedMethod}` : parsedMethod;
+        this.currentTab = 'methods';
+        this.currentMethod = mapped;
+      } else {
+        this.currentTab = tabId;
+        if (methodId) this.currentMethod = methodId;
+      }
+
+      if (updateHash) {
+        window.location.hash = this.currentTab === 'methods' ? `methods-${this.currentMethod}` : this.currentTab;
+      }
+
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === this.currentTab) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      document.querySelectorAll('.tab-view').forEach(view => {
+        if (view.id === `view-${this.currentTab}`) {
+          view.classList.add('active');
+        } else {
+          view.classList.remove('active');
+        }
+      });
+
+      if (this.currentTab === 'methods') {
+        this.switchMethod(this.currentMethod);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Initialize on DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = new RithinFinanceApp();
+      app.init();
+    });
+  } else {
+    const app = new RithinFinanceApp();
+    app.init();
+  }
+})();
+
+  </script>
+</body>
+</html>

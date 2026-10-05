@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RITHIN FINANCE — Cost of Equity Capital Calculator</title>
+  <meta name="description" content="Calculate, compare, and learn the Cost of Equity Capital (Ke) using four standard financial methods. Built for B.Com and MBA finance students.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- App Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js for smooth interactive visualizations (with offline resilient SVG fallback) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="container header-inner">
+      <div class="brand-wrapper" onclick="window.navigateToTab('dashboard')">
+        <div class="brand-logo-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title-row">
+            <span class="brand-name">RITHIN FINANCE</span>
+            <span class="brand-badge">PRO SUITE</span>
+          </div>
+          <span class="brand-tagline">Smart Finance. Simple Decisions.</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="currency-toggle-wrap">
+          <label for="currency-select">Currency:</label>
+          <select id="currency-select" class="currency-select">
+            <option value="₹" selected>₹ INR (Rupee)</option>
+            <option value="$">$ USD (Dollar)</option>
+            <option value="€">€ EUR (Euro)</option>
+            <option value="£">£ GBP (Pound)</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="window.navigateToTab('methods', 'm1')">
+          ⚡ Start Calculation
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav class="main-nav">
+    <div class="container">
+      <div class="nav-tabs">
+        <button type="button" class="nav-tab-btn active" data-tab="dashboard">
+          <span class="tab-icon">🏠</span>
+          <span>Dashboard</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="methods">
+          <span class="tab-icon">🧮</span>
+          <span>Methods Calculator</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="compare">
+          <span class="tab-icon">📊</span>
+          <span>Compare Methods</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="learn">
+          <span class="tab-icon">🎓</span>
+          <span>Learn the Concept</span>
+        </button>
+        <button type="button" class="nav-tab-btn" data-tab="about">
+          <span class="tab-icon">ℹ️</span>
+          <span>About</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Body -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- ====================================================================
+           VIEW 1: DASHBOARD
+           ==================================================================== -->
+      <section id="view-dashboard" class="tab-view active">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+          <div class="hero-content">
+            <div class="hero-badge-pill">CORPORATE FINANCIAL MANAGEMENT</div>
+            <h1 class="hero-title">
+              Cost of Equity Capital <span class="gradient-text">Calculator</span>
+            </h1>
+            <p class="hero-subtitle">
+              Calculate the cost of equity using four standard financial methods. Designed for B.Com and MBA finance students with real-time step-by-step mathematical breakdowns.
+            </p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary btn-lg" onclick="window.navigateToTab('methods', 'm1')">
+                Start Calculation →
+              </button>
+              <button type="button" class="btn btn-secondary btn-lg" onclick="window.navigateToTab('compare')">
+                Compare All 4 Methods
+              </button>
+              <button type="button" class="btn btn-outline btn-lg" onclick="window.navigateToTab('learn')">
+                Learn the Concepts 📖
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="section-header-block">
+          <div class="section-eyebrow">EQUITY VALUATION FRAMEWORKS</div>
+          <h2 class="section-heading">Four Standard Calculation Methods</h2>
+          <p class="section-description">
+            Choose any method below to view mathematical formulations, test textbook scenarios, and inspect step-by-step algebraic substitutions.
+          </p>
+        </div>
+
+        <!-- Four Method Cards -->
+        <div class="dashboard-grid">
+          
+          <!-- Method 1 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm1')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #38BDF8;">🪙</div>
+                <div class="method-number-tag">METHOD 01</div>
+              </div>
+              <h3 class="method-title">Dividend Price Method</h3>
+              <p class="method-desc">
+                Calculates Cost of Equity directly as the ratio of current dividend per share to market price, assuming constant zero-growth dividends.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span>Ke = (D / P) × 100</span>
+                <span class="method-formula-label">Formula</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #38BDF8; font-weight: 600;">Textbook: Ke = 8.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 2 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm2')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #10B981;">📈</div>
+                <div class="method-number-tag">METHOD 02</div>
+              </div>
+              <h3 class="method-title">Dividend Yield + Growth Method</h3>
+              <p class="method-desc">
+                The classic Gordon Growth model accounting for expected future dividend expansion by combining dividend yield with dividend growth rate ($g$).
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #10B981;">Ke = (D1 / P0) + g</span>
+                <span class="method-formula-label">Gordon Model</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #10B981; font-weight: 600;">Textbook: Ke = 13.40%</span>
+                <button type="button" class="btn btn-emerald btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 3 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm3')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #F59E0B;">🏢</div>
+                <div class="method-number-tag">METHOD 03</div>
+              </div>
+              <h3 class="method-title">Earnings Price Method</h3>
+              <p class="method-desc">
+                Measures the cost of equity from the company's total earnings yield (EPS / Price), ideal for firms retaining a high percentage of profits for capital growth.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #F59E0B;">Ke = (E / P) × 100</span>
+                <span class="method-formula-label">Earnings Yield</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #F59E0B; font-weight: 600;">Textbook: Ke = 10.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Method 4 Card -->
+          <div class="method-card" onclick="window.navigateToTab('methods', 'm4')">
+            <div>
+              <div class="method-card-top">
+                <div class="method-icon-circle" style="color: #A855F7;">⏳</div>
+                <div class="method-number-tag">METHOD 04</div>
+              </div>
+              <h3 class="method-title">Realised Yield Method</h3>
+              <p class="method-desc">
+                Computes actual historical return realized by equity shareholders from dividends received plus price appreciation (capital gain) over a holding period.
+              </p>
+            </div>
+            <div>
+              <div class="method-formula-box">
+                <span style="color: #C084FC; font-size: 0.775rem;">[(D + (P1 - P0)) / P0] × 100</span>
+                <span class="method-formula-label">Ex-Post</span>
+              </div>
+              <div class="method-card-footer">
+                <span style="font-size: 0.8rem; color: #C084FC; font-weight: 600;">Textbook: Ke = 15.00%</span>
+                <button type="button" class="btn btn-primary btn-sm">Calculate →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Quick Summary Callout -->
+        <div style="background: rgba(30, 41, 59, 0.4); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #FFFFFF;">Need to compare all 4 methods for an exam problem?</div>
+            <div style="font-size: 0.825rem; color: var(--text-secondary);">Enter unified company variables to see all 4 calculations rendered concurrently with visual charts.</div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="window.navigateToTab('compare')">
+            Launch Comparison Engine 📊
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 2: METHODS CALCULATOR
+           ==================================================================== -->
+      <section id="view-methods" class="tab-view">
+        
+        <div class="calc-nav-bar">
+          <div>
+            <div class="section-eyebrow">INTERACTIVE CALCULATOR</div>
+            <h2 class="section-heading" style="font-size: 1.75rem;">Cost of Equity Engine</h2>
+          </div>
+
+          <!-- Method Selector Tabs -->
+          <div class="calc-selector-pills">
+            <button type="button" class="calc-pill-btn active" data-method="m1">1. Dividend Price</button>
+            <button type="button" class="calc-pill-btn" data-method="m2">2. Dividend + Growth</button>
+            <button type="button" class="calc-pill-btn" data-method="m3">3. Earnings Price</button>
+            <button type="button" class="calc-pill-btn" data-method="m4">4. Realised Yield</button>
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 1 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m1">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0;">METHOD 1</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m1-example-btn">
+                ✨ Load Example (₹8 / ₹100)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Dividend Price Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Calculates Cost of Equity (Ke) based on dividend per share and market price, assuming perpetual zero growth.
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span>Ke = (D / P) × 100</span>
+              <span class="method-formula-label">Standard Formula</span>
+            </div>
+
+            <div class="calc-error-box" id="m1-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m1-dividend">
+                <span>Dividend per Share (D)</span>
+                <span class="form-hint">Annual dividend paid</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m1-dividend" class="form-control" placeholder="8.00" value="8" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m1-price">
+                <span>Market Price per Share (P)</span>
+                <span class="form-hint">Current market valuation</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m1-price" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m1-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m1-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m1-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 2 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m2" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #6EE7B7;">METHOD 2</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m2-example-btn">
+                ✨ Load Example (₹8, 5%, ₹100)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Dividend Yield + Growth Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Gordon Growth Model factoring in constant anticipated dividend growth rate ($g$).
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.25rem;">
+              <span style="color: #10B981;">Ke = (D1 / P0) + g</span>
+              <span class="method-formula-label">Gordon Model</span>
+            </div>
+
+            <div class="toggle-row">
+              <input type="checkbox" id="m2-is-d1-toggle" style="cursor: pointer; width: 16px; height: 16px;">
+              <label for="m2-is-d1-toggle" class="toggle-label" style="cursor: pointer;">
+                I already know the <strong>Expected Next Dividend (D1)</strong> directly
+              </label>
+            </div>
+
+            <div class="calc-error-box" id="m2-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-dividend" id="m2-div-label">
+                <span>Current Dividend per Share (D0)</span>
+                <span class="form-hint">D1 = D0 × (1 + g)</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m2-dividend" class="form-control" placeholder="8.00" value="8" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-growth">
+                <span>Expected Dividend Growth Rate (g)</span>
+                <span class="form-hint">Enter as a % (e.g. 5 for 5%)</span>
+              </label>
+              <div class="input-addon-group">
+                <input type="number" id="m2-growth" class="form-control" placeholder="5.00" value="5" step="any">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m2-price">
+                <span>Current Market Price per Share (P0)</span>
+                <span class="form-hint">Base market price</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m2-price" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-emerald" id="m2-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m2-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m2-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 3 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m3" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #FCD34D;">METHOD 3</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m3-example-btn">
+                ✨ Load Example (EPS ₹12 / ₹120)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Earnings Price Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Determines Cost of Equity based on overall earning power per share (EPS / Price).
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span style="color: #F59E0B;">Ke = (E / P) × 100</span>
+              <span class="method-formula-label">Earnings Yield</span>
+            </div>
+
+            <div class="calc-error-box" id="m3-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m3-eps">
+                <span>Earnings per Share (EPS)</span>
+                <span class="form-hint">E = Net Profit / Equity Shares</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m3-eps" class="form-control" placeholder="12.00" value="12" step="any">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m3-price">
+                <span>Market Price per Share (P)</span>
+                <span class="form-hint">Current market valuation</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m3-price" class="form-control" placeholder="120.00" value="120" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m3-calc-btn">
+                Calculate Ke
+              </button>
+              <button type="button" class="btn btn-secondary" id="m3-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m3-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+        <!-- ==================== METHOD 4 PANEL ==================== -->
+        <div class="calculator-layout method-calc-panel" id="panel-m4" style="display: none;">
+          <!-- Input Card -->
+          <div class="glass-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+              <span class="hero-badge-pill" style="margin-bottom: 0; background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: #D8B4FE;">METHOD 4</span>
+              <button type="button" class="btn btn-outline btn-sm" id="m4-example-btn">
+                ✨ Load Example (₹100, ₹110, ₹5)
+              </button>
+            </div>
+
+            <h3 style="font-size: 1.35rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Realised Yield Method</h3>
+            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+              Calculates historical actual return from dividends and share price appreciation.
+            </p>
+
+            <div class="method-formula-box" style="margin-bottom: 1.5rem;">
+              <span style="color: #C084FC; font-size: 0.775rem;">Realised Yield = [(D + (P1 - P0)) / P0] × 100</span>
+              <span class="method-formula-label">Holding Return</span>
+            </div>
+
+            <div class="calc-error-box" id="m4-error-box"></div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-p0">
+                <span>Beginning Market Price (P0)</span>
+                <span class="form-hint">Share price at start of period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-p0" class="form-control" placeholder="100.00" value="100" step="any" min="0.01">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-p1">
+                <span>Ending Market Price (P1)</span>
+                <span class="form-hint">Share price at end of period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-p1" class="form-control" placeholder="110.00" value="110" step="any">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="m4-dividend">
+                <span>Dividend Received (D)</span>
+                <span class="form-hint">Cash dividends during period</span>
+              </label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="m4-dividend" class="form-control" placeholder="5.00" value="5" step="any" min="0">
+              </div>
+            </div>
+
+            <div class="calc-toolbar">
+              <button type="button" class="btn btn-primary" id="m4-calc-btn">
+                Calculate Realised Yield
+              </button>
+              <button type="button" class="btn btn-secondary" id="m4-reset-btn">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Result Card -->
+          <div class="result-card" id="m4-result-container">
+            <!-- Rendered by UIController.renderResultCard -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 3: COMPARE METHODS DASHBOARD
+           ==================================================================== -->
+      <section id="view-compare" class="tab-view">
+        
+        <div class="section-header-block">
+          <div class="section-eyebrow">CROSS-METHOD BENCHMARKING</div>
+          <h2 class="section-heading">Compare All Four Methods</h2>
+          <p class="section-description">
+            Evaluate how the Cost of Equity varies across models for the same underlying security or company scenario.
+          </p>
+        </div>
+
+        <!-- Presets and Input Controls -->
+        <div class="compare-top-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
+            <div style="font-weight: 700; color: #FFFFFF; font-size: 1.05rem;">Scenario Inputs</div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="default">Textbook Standard</button>
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="fmcg">Mature FMCG (High Div)</button>
+              <button type="button" class="btn btn-outline btn-sm cmp-preset-btn" data-scenario="tech">Tech Firm (High Growth)</button>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+            <div>
+              <label class="form-label" for="cmp-dividend">Dividend (D0/D)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-dividend" class="form-control" value="8" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-price">Base Price (P0/P)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-price" class="form-control" value="100" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-growth">Growth Rate (g)</label>
+              <div class="input-addon-group">
+                <input type="number" id="cmp-growth" class="form-control" value="5.4" step="any">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-eps">Earnings (EPS)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-eps" class="form-control" value="10" step="any">
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="cmp-p1">Ending Price (P1)</label>
+              <div class="input-addon-group">
+                <span class="input-prefix curr-sym">₹</span>
+                <input type="number" id="cmp-p1" class="form-control" value="115" step="any">
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 1.25rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-secondary btn-sm" id="cmp-reset-btn">Reset Defaults</button>
+            <button type="button" class="btn btn-primary btn-sm" id="cmp-calc-btn">Recalculate All 4 Methods</button>
+          </div>
+        </div>
+
+        <!-- 4 Cards Summary Grid -->
+        <div class="compare-cards-grid">
+          
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Dividend Price Method</div>
+            <div class="compare-card-percent" id="cmp-card-1-val">8.00%</div>
+            <div class="compare-card-formula">Ke = D / P × 100</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Dividend Yield + Growth</div>
+            <div class="compare-card-percent" id="cmp-card-2-val">13.40%</div>
+            <div class="compare-card-formula">Ke = (D1 / P0) + g</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Earnings Price Method</div>
+            <div class="compare-card-percent" id="cmp-card-3-val">10.00%</div>
+            <div class="compare-card-formula">Ke = E / P × 100</div>
+          </div>
+
+          <div class="compare-card active-target">
+            <div class="compare-card-method">Realised Yield Method</div>
+            <div class="compare-card-percent" id="cmp-card-4-val">15.00%</div>
+            <div class="compare-card-formula">[(D + ΔP) / P0] × 100</div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Comparison Chart -->
+        <div class="chart-container-box">
+          <div class="chart-header">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF;">Visual Comparison Chart</h3>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Relative magnitude of Cost of Equity percentages across the 4 methods.</p>
+            </div>
+            <span class="hero-badge-pill" style="margin-bottom: 0;">PERCENTAGE COMPARISON</span>
+          </div>
+
+          <div class="chart-canvas-wrapper">
+            <canvas id="compare-chart-canvas"></canvas>
+            <div class="svg-fallback-chart" id="compare-chart-fallback" style="display: none;"></div>
+          </div>
+        </div>
+
+        <!-- Crucial Educational Caveat -->
+        <div class="educational-caveat-banner">
+          <div class="caveat-icon">⚠️</div>
+          <div>
+            <div class="caveat-text-title">Understanding Why Methods Produce Different Results</div>
+            <div class="caveat-text-body">
+              <strong>Methods may produce different results because each method uses different assumptions and financial information.</strong>
+              For instance, the Dividend Price Method assumes zero future growth, while the Gordon model prices in continuous dividend expansion. The Earnings Price Method reflects total corporate earning power (assuming retention adds equal value), while Realised Yield reflects historical past performance rather than future expectations.
+              <br><br>
+              <em>Finance Principle: No single method is universally declared the "best" method. The appropriate method depends on the firm’s dividend policy, growth stage, and market predictability.</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparison Matrix Table -->
+        <div class="matrix-table-wrap">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Calculation Method</th>
+                <th>Standard Formula</th>
+                <th>Key Inputs Required</th>
+                <th>Core Underlying Assumption</th>
+                <th>B.Com / MBA Applicability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">1. Dividend Price Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Zero-Growth Valuation</span>
+                </td>
+                <td class="matrix-code">Ke = (D / P) × 100</td>
+                <td>Dividend (D), Market Price (P)</td>
+                <td>Dividends remain fixed indefinitely; zero growth (g = 0); 100% payout of normal profits.</td>
+                <td>Mature, stationary utilities with stable cash flows and predictable dividend payouts.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">2. Dividend Yield + Growth</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Gordon Growth Model</span>
+                </td>
+                <td class="matrix-code">Ke = (D1 / P0) + g</td>
+                <td>Current Div (D0) or D1, Growth rate (g), Price (P0)</td>
+                <td>Dividends grow at a constant perpetual rate (g); cost of equity exceeds growth rate (Ke > g).</td>
+                <td>Most widely used in textbook problems for companies with a steady track record of growing dividends.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">3. Earnings Price Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Earnings Yield</span>
+                </td>
+                <td class="matrix-code">Ke = (E / P) × 100</td>
+                <td>Earnings per Share (EPS), Market Price (P)</td>
+                <td>Investors look at total earning power rather than just distributed dividends; retained earnings yield same return.</td>
+                <td>High-growth firms that reinvest most profits instead of declaring high dividends.</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="matrix-method-badge">4. Realised Yield Method</span>
+                  <span style="font-size: 0.75rem; color: var(--text-muted);">Historical Ex-Post Return</span>
+                </td>
+                <td class="matrix-code">[(D + (P1 - P0)) / P0] × 100</td>
+                <td>Beginning Price (P0), Ending Price (P1), Dividends (D)</td>
+                <td>Past shareholder returns reflect the risk-adjusted rate of return required for future periods.</td>
+                <td>Retrospective academic studies and empirical market risk benchmarking.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 4: LEARN THE CONCEPT (EDUCATIONAL MODE)
+           ==================================================================== -->
+      <section id="view-learn" class="tab-view">
+        
+        <div class="section-header-block">
+          <div class="section-eyebrow">FINANCE EDUCATION SUITE</div>
+          <h2 class="section-heading">Learn the Cost of Equity (Ke)</h2>
+          <p class="section-description">
+            A comprehensive, exam-oriented study guide written in simple English specifically for B.Com and MBA finance students.
+          </p>
+        </div>
+
+        <!-- Concept Cards Grid -->
+        <div class="learn-cards-grid">
+          
+          <!-- Method 1 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge">METHOD 1: ZERO GROWTH</span>
+            <h3 class="learn-card-title">Dividend Price Method</h3>
+            <p class="learn-card-text">
+              The Dividend Price Method assumes that the market price of an equity share depends strictly on the current cash dividend paid to shareholders, and that this dividend will remain constant forever.
+            </p>
+            <div class="learn-formula-display">
+              Ke = (D / P) × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>Ke</strong> = Cost of Equity capital (percentage).</li>
+              <li><strong>D</strong> = Dividend per Share (DPS).</li>
+              <li><strong>P</strong> = Current Market Price per Share (MPS).</li>
+              <li><strong>When used:</strong> Ideal for mature, zero-growth companies that pay out 100% of their earnings as steady dividends.</li>
+              <li><strong>Limitation:</strong> Unrealistic for growing modern firms that retain earnings or increase dividends annually.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> A firm pays a dividend of ₹8 per share and its market price is ₹100.
+              <br>Ke = (8 / 100) × 100 = <strong>8.00%</strong>
+            </div>
+          </div>
+
+          <!-- Method 2 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.3); color: #6EE7B7;">METHOD 2: GORDON MODEL</span>
+            <h3 class="learn-card-title">Dividend Yield + Growth Method</h3>
+            <p class="learn-card-text">
+              Recognizes that equity investors expect dividends to increase over time as company profits expand. The cost of equity equals the current dividend yield plus the anticipated dividend growth rate ($g$).
+            </p>
+            <div class="learn-formula-display" style="color: #10B981;">
+              Ke = (D1 / P0) + g
+            </div>
+            <ul class="learn-list">
+              <li><strong>D1</strong> = Expected dividend next year = D0 × (1 + g).</li>
+              <li><strong>P0</strong> = Current market price per share.</li>
+              <li><strong>g</strong> = Constant annual dividend growth rate.</li>
+              <li><strong>When used:</strong> Widely used in corporate finance and MBA exams for established firms with steady growth.</li>
+              <li><strong>Limitation:</strong> Requires that growth rate ($g$) is less than Cost of Equity ($Ke$), and growth must remain constant.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> Current div = ₹8, growth = 5%, price = ₹100.
+              <br>D1 = 8 × 1.05 = ₹8.40
+              <br>Ke = (8.40 / 100) + 0.05 = 0.084 + 0.05 = <strong>13.40%</strong>
+            </div>
+          </div>
+
+          <!-- Method 3 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.3); color: #FCD34D;">METHOD 3: EARNINGS YIELD</span>
+            <h3 class="learn-card-title">Earnings Price Method</h3>
+            <p class="learn-card-text">
+              The Earnings Price Method argues that equity shareholders own the entire earnings of the company, whether paid out as dividends or retained. Therefore, Cost of Equity is the company’s earnings yield.
+            </p>
+            <div class="learn-formula-display" style="color: #F59E0B;">
+              Ke = (E / P) × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>E</strong> = Earnings per Share (EPS = Net Profit after Tax & Pref. Div / No. of Equity Shares).</li>
+              <li><strong>P</strong> = Market Price per Share.</li>
+              <li><strong>When used:</strong> Highly useful when companies retain a high proportion of profits for reinvestment.</li>
+              <li><strong>Limitation:</strong> Assumes retained earnings will generate a rate of return exactly equal to current cost of equity.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> EPS = ₹12, Market Price = ₹120.
+              <br>Ke = (12 / 120) × 100 = <strong>10.00%</strong> (P/E ratio = 10x)
+            </div>
+          </div>
+
+          <!-- Method 4 Explanation -->
+          <div class="learn-card">
+            <span class="learn-card-badge" style="background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.3); color: #D8B4FE;">METHOD 4: HISTORICAL RETURN</span>
+            <h3 class="learn-card-title">Realised Yield Method</h3>
+            <p class="learn-card-text">
+              Instead of forecasting future dividends or earnings, this method measures the actual return realised by an investor in past years through cash dividends and share price appreciation.
+            </p>
+            <div class="learn-formula-display" style="color: #C084FC; font-size: 0.85rem;">
+              Realised Yield = [(D + (P1 - P0)) / P0] × 100
+            </div>
+            <ul class="learn-list">
+              <li><strong>P0</strong> = Beginning market price.</li>
+              <li><strong>P1</strong> = Ending market price.</li>
+              <li><strong>D</strong> = Dividend received during the holding period.</li>
+              <li><strong>(P1 - P0)</strong> = Capital Gain (or loss if negative).</li>
+              <li><strong>When used:</strong> When future projections are uncertain and past performance provides a realistic proxy.</li>
+            </ul>
+            <div style="background: var(--bg-dark-850); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.8rem;">
+              <strong>Solved Example:</strong> Bought at ₹100, sold at ₹110, dividend = ₹5.
+              <br>Yield = [5 + (110 - 100)] / 100 × 100 = <strong>15.00%</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formula Reference Section -->
+        <div class="glass-card" style="margin-bottom: 2.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: #FFFFFF;">📋 Quick Formula Cheat-Sheet for Exams</h3>
+            <span class="hero-badge-pill" style="margin-bottom: 0;">EXAM REVISION</span>
+          </div>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Keep this reference handy when solving corporate financial management and cost of capital examination questions.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">DIVIDEND PRICE</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #38BDF8; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (D / P) × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">D = Dividend, P = Market Price</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">GORDON GROWTH</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #10B981; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (D1 / P0) + g</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">D1 = D0 × (1 + g), g = growth %</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">EARNINGS PRICE</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #F59E0B; font-size: 1.1rem; margin: 0.4rem 0;">Ke = (E / P) × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">E = EPS, P = Market Price</div>
+            </div>
+
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">REALISED YIELD</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; color: #C084FC; font-size: 0.95rem; margin: 0.4rem 0;">[(D + ΔP) / P0] × 100</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary);">ΔP = (P1 - P0) Capital gain</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Knowledge Check Quiz -->
+        <div class="quiz-container">
+          <div style="margin-bottom: 1.5rem;">
+            <div class="section-eyebrow">INTERACTIVE KNOWLEDGE CHECK</div>
+            <h3 style="font-size: 1.5rem; font-weight: 800; color: #FFFFFF;">Test Your Understanding</h3>
+            <p style="font-size: 0.875rem; color: var(--text-secondary);">
+              Answer these 5 quick conceptual questions to verify your grasp of Cost of Equity capital methods.
+            </p>
+          </div>
+
+          <div id="quiz-container">
+            <!-- Rendered by QuizEngine -->
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ====================================================================
+           VIEW 5: ABOUT
+           ==================================================================== -->
+      <section id="view-about" class="tab-view">
+        
+        <div class="about-card-section">
+          <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="brand-logo-badge" style="width: 56px; height: 56px; font-size: 1.75rem;">
+              🏛️
+            </div>
+            <div>
+              <h2 style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF;">RITHIN FINANCE</h2>
+              <div style="font-size: 0.9rem; color: #38BDF8; font-weight: 600;">Smart Finance. Simple Decisions.</div>
+            </div>
+          </div>
+
+          <p style="font-size: 1rem; color: var(--text-primary); line-height: 1.7; margin-bottom: 1.5rem;">
+            <strong>RITHIN FINANCE</strong> is a modern, high-precision financial education application engineered specifically for Bachelor of Commerce (B.Com) and Master of Business Administration (MBA) students.
+          </p>
+
+          <h4 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem;">Why Cost of Equity Matters</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1.5rem;">
+            In Corporate Financial Management, the <strong>Cost of Equity Capital (Ke)</strong> represents the minimum rate of return a firm must generate on equity-financed investments to maintain the market value of its common stock. Unlike debt capital which carries an explicit contractual interest rate, equity capital does not have a legally binding payment obligation. Estimating its cost requires financial models that translate investor expectations, dividend policies, and market returns into an accurate percentage hurdle rate.
+          </p>
+
+          <h4 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem;">Key Design Principles</h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #10B981; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Mathematical Rigor</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Zero division guards, accurate rounding to 2 decimal places, verified against standard finance textbooks.</div>
+            </div>
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #38BDF8; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Full Step-by-Step Transparency</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Every calculation displays given parameters, explicit formula, algebraic substitution, and final answer.</div>
+            </div>
+            <div style="background: var(--bg-dark-900); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--glass-border);">
+              <div style="color: #F59E0B; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem;">✓ Neutral Evaluation</div>
+              <div style="font-size: 0.8rem; color: var(--text-secondary);">Compares all 4 methods side-by-side without arbitrarily claiming one method is universally superior.</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+            <button type="button" class="btn btn-primary" onclick="window.navigateToTab('methods', 'm1')">
+              Launch Calculator Now →
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="footer-top-row">
+        <div>
+          <div class="footer-brand-title">RITHIN FINANCE</div>
+          <div class="footer-tagline">Smart Finance. Simple Decisions.</div>
+        </div>
+        <div class="footer-badge">
+          <span>🎓</span> Designed for Financial Learning
+        </div>
+      </div>
+      <div class="footer-bottom-row">
+        <div>
+          &copy; 2026 RITHIN FINANCE. Built for B.Com &amp; MBA Academic Excellence.
+        </div>
+        <div class="footer-links">
+          <a href="#dashboard" class="footer-link" onclick="window.navigateToTab('dashboard')">Dashboard</a>
+          <a href="#methods" class="footer-link" onclick="window.navigateToTab('methods')">Methods</a>
+          <a href="#compare" class="footer-link" onclick="window.navigateToTab('compare')">Compare</a>
+          <a href="#learn" class="footer-link" onclick="window.navigateToTab('learn')">Learn</a>
+          <a href="#about" class="footer-link" onclick="window.navigateToTab('about')">About</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
